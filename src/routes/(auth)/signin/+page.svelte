@@ -1,14 +1,13 @@
 <script lang="ts">
+  import { signinSchema } from "./schema";
+  import { superForm } from "sveltekit-superforms";
+  import { goto } from "$app/navigation";
+  import { zodClient } from "sveltekit-superforms/adapters";
 
-  import { signinSchema } from './schema';
-  import { superForm } from 'sveltekit-superforms';
-  import { goto } from '$app/navigation';
-  import { zodClient } from 'sveltekit-superforms/adapters';
-  
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   export let data;
-
+  let showPassword = false;
   const {
     form: formData,
     errors,
@@ -22,12 +21,15 @@
     validate(field);
   }
 
+  function togglePasswordVisibility() {
+    showPassword = !showPassword;
+  }
+
   $: if ($message) {
-    if ($message.includes('successfully')) {
+    if ($message.includes("successfully")) {
       onMount(() => {
         setTimeout(() => {
-     
-          goto('/');
+          goto("/");
         }, 2000);
       });
     } else {
@@ -47,23 +49,23 @@
     class="fixed inset-0 bg-cover bg-center"
     style="background-image: url('../auth-background2.png');"
   ></div>
- 
-  {#if $message}
-  {#if $message?.includes('successfully')}
-    <h3 class="text-green-500">
-      {$message}
-    </h3>
-  {:else}
-    <h3 class="text-red-500">{$message}</h3>
-  {/if}
-{/if}
-  
-<form method="POST"
-       class="w-1/3 h-screen relative mx-20 md:mx-28 lg:mx-36 2xl:mx-52 gap-2 xl:gap-8 font-poiret flex flex-col justify-center items-center"
+
+  <form
+    method="POST"
+    class="w-1/3 h-screen relative mx-20 md:mx-28 lg:mx-36 2xl:mx-52 gap-2 xl:gap-8 font-poiret flex flex-col justify-center items-center"
   >
     <p class="text-5xl xl:text-7xl text-black">
       Sign <span class="text-white">In</span>
     </p>
+    {#if $message}
+      {#if $message?.includes("successfully")}
+        <h3 class="text-green-500">
+          {$message}
+        </h3>
+      {:else}
+        <h3 class="text-red-500">{$message}</h3>
+      {/if}
+    {/if}
 
     <!-- email -->
     <div class="flex flex-col w-full gap-2">
@@ -71,36 +73,47 @@
         >E-mail</label
       >
       <input
-      id="email"
-      name="email"
-      type="email"
-      placeholder="m@example.com"
+        id="email"
+        name="email"
+        type="email"
+        placeholder="m@example.com"
         class="bg-[#E0F2D8]/30 hover:bg-[#E0F2D8]/50 border-2 p-1 xl:p-2 border-black/50 hover:border-black rounded-xl"
-        bind:value="{$formData.email}"
-            on:input="{() => validateInput('email')}"
-        />
-        {#if $errors.email}
+        bind:value={$formData.email}
+        on:input={() => validateInput("email")}
+      />
+      {#if $errors.email}
         <p class="text-red-500">{$errors.email}</p>
       {/if}
-
     </div>
     <!-- password -->
     <div class="flex flex-col w-full gap-2">
-      <label
-       for="password"
-        class="text-white font-thin text-2xl xl:text-4xl"
+      <label for="password" class="text-white font-thin text-2xl xl:text-4xl"
         >Password</label
       >
       <input
-      id="password"
-      name="password"
-      type="password"
-      placeholder="••••••••"
-      bind:value="{$formData.password}"
-      on:input="{() => validateInput('password')}"
+        id="password"
+        name="password"
+        type="password"
+        placeholder="••••••••"
+        bind:value={$formData.password}
+        on:input={() => validateInput("password")}
         class="bg-[#E0F2D8]/30 hover:bg-[#E0F2D8]/50 border-2 p-1 xl:p-2 border-black/50 hover:border-black rounded-xl"
-     
-        />
+      />
+      <button
+        type="button"
+        class=" relative text-slate-500 text-sm"
+        on:click={togglePasswordVisibility}
+      >
+        {#if showPassword}
+          Hide
+        {/if}
+        {#if !showPassword}
+          Show
+        {/if}
+        {#if $errors.password}
+          <p class="text-red-500">{$errors.password}</p>
+        {/if}
+      </button>
     </div>
     <!-- submit button -->
     <div class="flex flex-row gap-4 w-full justify-center items-center">
@@ -118,4 +131,4 @@
       >
     </div>
   </form>
-  </div>
+</div>
