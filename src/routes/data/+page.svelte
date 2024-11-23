@@ -29,8 +29,8 @@
     try {
       let allMovies = get(moviesStore); // Get current value of the store
 
-      for (let i = 1; i < 5; i++) {
-        const res = await fetch(`/api/tmdb?year=2019&page=${i}`);
+      for (let i = 1; i < 501; i++) {
+        const res = await fetch(`/api/tmdb?year=2024&page=${i}`);
         if (res.ok) {
           const data = await res.json();
           if (data.results && Array.isArray(data.results)) {
