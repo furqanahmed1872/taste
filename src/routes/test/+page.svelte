@@ -1,32 +1,55 @@
-<script>
-  // Movie data array
-  let movies = [
-      {
-          title: "Harry Potter and the Deathly Hallows: Part 2",
-          overview:
-              "Harry, Ron and Hermione continue their quest to vanquish the evil Voldemort once and for all. Just as things begin to look hopeless for the young wizards, Harry discovers a trio of magical objects that endow him with powers to rival Voldemort's formidable skills.",
-          release_date: "2011-07-12",
-          vote_average: 8.1,
-          poster_path: "https://image.tmdb.org/t/p/w300/c54HpQmuwXjHq2C9wmoACjxoom3.jpg",
-      },
-      // Add more movies here
-  ];
-</script>
-
-<h1 class="text-3xl font-semibold text-center my-8">Movie List</h1>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-  {#each movies as movie}
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-          <img src={movie.poster_path} alt={movie.title} class="w-full h-auto" />
-          <div class="p-4">
-              <h2 class="text-xl font-semibold mb-2">{movie.title}</h2>
-              <p class="text-sm text-black mb-4">{movie.overview}</p>
-              <p class="text-xs text-black-500">
-                  Release Date: {movie.release_date}<br />
-                  Vote Average: {movie.vote_average}
-              </p>
-          </div>
+<link
+  href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+  rel="stylesheet"
+/>
+<div
+  class="h-screen w-full bg-[url('https://w.wallhaven.cc/full/l3/wallhaven-l3d55y.jpg')] bg-cover bg-center"
+>
+  <div class="h-24 place-content-center items-center grid grid-cols-10">
+    <div class="col-span-2"></div>
+    <div class="text-[#51714b] font-poiret text-4xl font-semibold grid-cols-2">
+      Jake Jonson
+    </div>
+    <div></div>
+    <div class="col-span-4 flex flex-row justify-evenly">
+      <div
+        class="text-[#51714b] font-avenir text-md font-semibold hover:text-green-600"
+      >
+        Home
       </div>
-  {/each}
+      <div
+        class="text-[#51714b] font-avenir text-md font-semibold hover:text-green-600"
+      >
+        portfolio
+      </div>
+      <div
+        class="text-[#51714b] font-avenir text-md font-semibold hover:text-green-600"
+      >
+        videos
+      </div>
+      <div
+        class="text-[#51714b] font-avenir text-md font-semibold hover:text-green-600"
+      >
+        Client
+      </div>
+      <div
+        class="text-[#51714b] font-avenir text-md font-semibold hover:text-green-600"
+      >
+        Contact
+      </div>
+    </div>
+    <div class="col-span-3"></div>
+  </div>
+
+<div class=" flex w-full justify-center items-center my-64 flex-col">
+
+<div class="font-extrabold text-rose-50 text-xl">Travel Photographer</div>
+<br>
+<div class=" text-5xl font-serif text-green-950">Seening the world ,Through<br><div class="text-center">the eyes of my lens </div></div>
+<button class="my-7 text-xl border p-4 px-8 hover:bg-white hover:text-black hover:border-black hover:border-solid text-yellow-50 transition duration-300 ease-in-out">Get in mood</button>
 </div>
+
+
+
+</div>
+
