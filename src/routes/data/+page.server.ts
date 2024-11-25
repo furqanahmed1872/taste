@@ -24,7 +24,7 @@ export const load: PageServerLoad = async () => {
       votingcount: m.vote_count,
       popularity: m.popularity,
       language: m.original_language,
-      year: "1991",
+      year: "1990",
     };
   });
   console.log(filterData.length);
