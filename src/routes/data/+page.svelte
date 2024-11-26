@@ -1,36 +1,36 @@
-<script>
+<!-- <script>
   import { onMount } from "svelte";
-  import { moviesStore } from "./store"; // Adjust the path as needed
+  import { moviesStore } from "./store";
   import { get } from "svelte/store";
   let allMovies;
-  let genres = [
-    { id: 28, name: "Action" },
-    { id: 12, name: "Adventure" },
-    { id: 16, name: "Animation" },
-    { id: 35, name: "Comedy" },
-    { id: 80, name: "Crime" },
-    { id: 99, name: "Documentary" },
-    { id: 18, name: "Drama" },
-    { id: 10751, name: "Family" },
-    { id: 14, name: "Fantasy" },
-    { id: 36, name: "History" },
-    { id: 27, name: "Horror" },
-    { id: 10402, name: "Music" },
-    { id: 9648, name: "Mystery" },
-    { id: 10749, name: "Romance" },
-    { id: 878, name: "Science Fiction" },
-    { id: 10770, name: "TV Movie" },
-    { id: 53, name: "Thriller" },
-    { id: 10752, name: "War" },
-    { id: 37, name: "Western" },
-  ];
+  // let genres = [
+  //   { id: 28, name: "Action" },
+  //   { id: 12, name: "Adventure" },
+  //   { id: 16, name: "Animation" },
+  //   { id: 35, name: "Comedy" },
+  //   { id: 80, name: "Crime" },
+  //   { id: 99, name: "Documentary" },
+  //   { id: 18, name: "Drama" },
+  //   { id: 10751, name: "Family" },
+  //   { id: 14, name: "Fantasy" },
+  //   { id: 36, name: "History" },
+  //   { id: 27, name: "Horror" },
+  //   { id: 10402, name: "Music" },
+  //   { id: 9648, name: "Mystery" },
+  //   { id: 10749, name: "Romance" },
+  //   { id: 878, name: "Science Fiction" },
+  //   { id: 10770, name: "TV Movie" },
+  //   { id: 53, name: "Thriller" },
+  //   { id: 10752, name: "War" },
+  //   { id: 37, name: "Western" },
+  // ];
 
   onMount(async () => {
     try {
-      let allMovies = get(moviesStore); // Get current value of the store
+      let allMovies = get(moviesStore);
 
       for (let i = 1; i < 501; i++) {
-        const res = await fetch(`/api/tmdb?year=1992&page=${i}`);
+        const res = await fetch(`/api/tmdb?year=2002&page=${i}`);
         if (res.ok) {
           const data = await res.json();
           if (data.results && Array.isArray(data.results)) {
@@ -84,4 +84,4 @@
   {:else}
     Still loading
   {/if}
-</div> -->
+</div> --> -->
