@@ -4,11 +4,7 @@ export default {
   theme: {
     extend: { 
       
-      screens: {
-      'xs': '480px', // Extra small screens
-      '2xl': '1440px', // Extra large screens
-      '3xl': '1920px', // Ultra large screens
-    },
+     
 
       fontFamily: {
         poiret: ['"Poiret One"', 'cursive'], // Adds Poiret One as a custom font
