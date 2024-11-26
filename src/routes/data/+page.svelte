@@ -29,8 +29,8 @@
     try {
       let allMovies = get(moviesStore); // Get current value of the store
 
-      for (let i = 1; i < 2; i++) {
-        const res = await fetch(`/api/tmdb?year=2024&page=${i}`);
+      for (let i = 1; i < 501; i++) {
+        const res = await fetch(`/api/tmdb?year=1992&page=${i}`);
         if (res.ok) {
           const data = await res.json();
           if (data.results && Array.isArray(data.results)) {
@@ -61,7 +61,7 @@
 
 <h1 class="text-3xl font-semibold text-center my-8">Movie List</h1>
 
-<div class="grid grid-cols-3 gap-6">
+<!-- <div class="grid grid-cols-3 gap-6">
   {#if $moviesStore}
     {#each $moviesStore as movie}
       <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -84,4 +84,4 @@
   {:else}
     Still loading
   {/if}
-</div>
+</div> -->
