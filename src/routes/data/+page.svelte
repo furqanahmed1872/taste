@@ -30,7 +30,7 @@
       let allMovies = get(moviesStore);
 
       for (let i = 1; i < 501; i++) {
-        const res = await fetch(`/api/tmdb?year=2002&page=${i}`);
+        const res = await fetch(`/api/tmdb?year=2022&page=${i}`);
         if (res.ok) {
           const data = await res.json();
           if (data.results && Array.isArray(data.results)) {
