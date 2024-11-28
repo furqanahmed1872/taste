@@ -3,11 +3,11 @@
   import { superForm } from "sveltekit-superforms";
   import { goto } from "$app/navigation";
   import { zodClient } from "sveltekit-superforms/adapters";
-
   import { onMount } from "svelte";
 
   export let data;
   let showPassword = false;
+
   const {
     form: formData,
     errors,
@@ -40,11 +40,10 @@
       });
     }
   }
-  // $: console.log($formData);
 </script>
 
 <div class="relative w-full min-h-screen">
-  <!-- Background Image (fixed position) -->
+  <!-- Background Image -->
   <div
     class="fixed inset-0 bg-cover bg-center"
     style="background-image: url('../auth-background2.png');"
@@ -57,21 +56,18 @@
     <p class="text-5xl xl:text-7xl text-black">
       Sign <span class="text-white">In</span>
     </p>
+
     {#if $message}
       {#if $message?.includes("successfully")}
-        <h3 class="text-green-500">
-          {$message}
-        </h3>
+        <h3 class="text-green-500">{$message}</h3>
       {:else}
         <h3 class="text-red-500">{$message}</h3>
       {/if}
     {/if}
 
-    <!-- email -->
+    <!-- Email Input -->
     <div class="flex flex-col w-full gap-2">
-      <label for="email" class="text-white font-thin text-2xl xl:text-4xl"
-        >E-mail</label
-      >
+      <label for="email" class="text-white font-thin text-2xl xl:text-4xl">E-mail</label>
       <input
         id="email"
         name="email"
@@ -85,50 +81,48 @@
         <p class="text-red-500">{$errors.email}</p>
       {/if}
     </div>
-    <!-- password -->
+
+    <!-- Password Input -->
     <div class="flex flex-col w-full gap-2">
-      <label for="password" class="text-white font-thin text-2xl xl:text-4xl"
-        >Password</label
-      >
+      <label for="password" class="text-white font-thin text-2xl xl:text-4xl">Password</label>
       <input
         id="password"
         name="password"
-        type="password"
+        type={showPassword ? "text" : "password"}
         placeholder="••••••••"
         bind:value={$formData.password}
         on:input={() => validateInput("password")}
-        class="bg-[#E0F2D8]/30 hover:bg-[#E0F2D8]/50 border-2 p-1 xl:p-2 border-black/50 hover:border-black rounded-xl"
+        class="bg-[#E0F2D8]/30 text-2xl hover:bg-[#E0F2D8]/50 border-2 p-1 xl:p-2 border-black/50 hover:border-black rounded-xl"
       />
       <button
         type="button"
-        class=" relative text-slate-500 text-sm"
+        class="relative text-black text-xl font-extrabold"
         on:click={togglePasswordVisibility}
       >
-        {#if showPassword}
-          Hide
-        {/if}
-        {#if !showPassword}
-          Show
-        {/if}
-        {#if $errors.password}
-          <p class="text-red-500">{$errors.password}</p>
-        {/if}
+        {showPassword ? "Hide" : "Show"}
       </button>
+      {#if $errors.password}
+        <p class="text-red-500">{$errors.password}</p>
+      {/if}
     </div>
-    <!-- submit button -->
+
+    <!-- Submit Button -->
     <div class="flex flex-row gap-4 w-full justify-center items-center">
       <button
         type="submit"
         class="p-2 w-1/3 xl:p-3 text-white text-xl xl:text-3xl rounded-2xl bg-[#3B3D37]/65 hover:bg-[#3B3D37]/80"
-        >Submit</button
       >
+        Submit
+      </button>
       <p class="text-black text-3xl xl:text-5xl">OR</p>
       <button
         type="button"
         on:click={() => goto("/signup")}
         class="p-2 w-1/3 xl:p-3 text-white text-xl xl:text-3xl rounded-2xl bg-[#3B3D37]/65 hover:bg-[#3B3D37]/80"
-        >Sign Up</button
       >
+        Sign Up
+      </button>
     </div>
   </form>
+  
 </div>
