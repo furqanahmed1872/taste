@@ -1,43 +1,28 @@
 import { supabase } from "$lib/supabaseClient";
-import { genres, movie } from "./store";
 import type { PageServerLoad, Actions } from "./$types.js";
 
 export const load: PageServerLoad = async () => {
-  function getGenreNames(genreIds) {
-    return genreIds
-      .map((id) => {
-        const genre = genres.find((g) => g.id === id);
-        return genre ? genre.name : "Unknown";
-      })
-      .join(", ");
-  }
-  let filterData = movie.map((m) => {
-    return {
-      title: m.original_title,
-      poster: m.poster_path,
-      background: m.backdrop_path,
-      rating: m.vote_average.toFixed(1),
-      date: m.release_date,
-      genre: getGenreNames(m.genre_ids),
-      storyline: m.overview,
-      adult: m.adult,
-      votingcount: m.vote_count,
-      popularity: m.popularity,
-      language: m.original_language,
-      year: "2030",
-    };
-  });
-  console.log(filterData.length);
-  const { data, error } = await supabase
-    .from("Movies")
-    .insert(filterData)
-    .select();
-
-    // const { error } = await supabase.from("Movies").delete().eq("year", "1992");
+  const { data: movies, error } = await supabase
+    .from("Movies") // Replace with your table name
+    .select("*")
+    .eq("year", 2024) // Filter by year 2024
+    .gt("rating", 5)
+    .or("genre.ilike.%action%,genre.ilike.%horror%"); // Filter for "action" in genre (case-insensitive)
 
   if (error) {
     console.error("Error inserting data:", error);
   }
 
-  return {};
+  return { movies };
 };
+  // Filters
+  // .eq('column', 'Equal to')
+  // .gt('column', 'Greater than')
+  // .lt('column', 'Less than')
+  // .gte('column', 'Greater than or equal to')
+  // .lte('column', 'Less than or equal to')
+  // .like('column', '%CaseSensitive%')
+  // .ilike('column', '%CaseInsensitive%')
+  // .is('column', null)
+  // .in('column', ['Array', 'Values'])
+  // .neq('column', 'Not equal to')
