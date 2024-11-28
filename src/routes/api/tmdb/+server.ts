@@ -1,5 +1,20 @@
 import { json } from "@sveltejs/kit";
 
+function sanitizeMovieData(movies) {
+  return movies.map((movie) => {
+    // Check if the `overview` key exists and is a string
+    if (typeof movie.overview === "string") {
+      // Escape any potential symbols or sanitize the string
+      movie.overview = JSON.stringify(movie.overview);
+    } else {
+      // If not a string, ensure it's converted to a sanitized string
+      movie.overview = JSON.stringify(String(movie.overview || ""));
+    }
+    return movie;
+  });
+}
+
+// Usage in your GET function
 export async function GET({ params, fetch, url }) {
   const year = url.searchParams.get("year");
   const page = url.searchParams.get("page");
@@ -16,5 +31,11 @@ export async function GET({ params, fetch, url }) {
   }
 
   const data = await response.json();
+
+  // Sanitize the movies array
+  if (Array.isArray(data.results)) {
+    data.results = sanitizeMovieData(data.results);
+  }
+
   return json(data);
 }
