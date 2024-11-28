@@ -16,17 +16,38 @@
   }
 }
 
+@keyframes slide-out {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 /* Base Styles for Animated Bars */
 .animated-bar {
-  width: 70%; /* Default width */
+   /* Default width */
   opacity: 0.5; /* Default opacity */
   transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition for hover/selection */
   animation: slide-in 1s ease-in-out forwards;
-  animation-delay: calc(var(--delay, 0s)); /* Delays for staggered animation */
+
 }
 
+.animated-bar-left {
+  /* Default width */
+ opacity: 0.5; /* Default opacity */
+ transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition for hover/selection */
+ animation: slide-in 1s ease-in-out forwards;
+
+}
+
+
+
 /* Delayed Animation for Each Bar */
-.animated-bar:nth-child(1) {
+.animated-bar {
   --delay: 0.2s;
 }
 .animated-bar:nth-child(2) {
@@ -41,18 +62,23 @@
 .animated-bar:nth-child(5) {
   --delay: 1s;
 }
-
-/* Hover Effect */
-.animated-bar:hover {
-  width: 100%; /* Expand width */
-  opacity: 1;  /* Full opacity on hover */
+.animated-bar:nth-child(6) {
+  --delay: 1.2s;
+}
+.animated-bar:nth-child(7) {
+  --delay: 1.4s;
+}
+.animated-bar:nth-child(8) {
+  --delay: 1.6s;
+}
+.animated-bar:nth-child(9) {
+  --delay: 1.8s;
+}
+.animated-bar:nth-child(10) {
+  --delay: 2s;
 }
 
-/* Selected Effect */
-.animated-bar.selected {
-  width: 100%;
-  opacity: 1; /* Full visibility */
-}
+
 
   @keyframes spinSlow {
     0% {
