@@ -1,32 +1,20 @@
 import type { PageServerLoad } from "./$types.js";
+import { PRIVATE_OPENAI_API_KEY } from "$env/static/private";
+import OpenAI from "openai";
 
-export const load: PageServerLoad = async () => {
-  let greetingnote: any;
-  try {
-    const response = await fetch("/api/voice-chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        welcomingnote:
-          "Hi, I’m StreamMate, your personal movie taste budder!, here to help you find the perfect movie or series to recommend. Just tell me what you're in the mood for, like: Genre (e.g., action, comedy, drama, horror), year (1990 t0 2025), Mood or theme (e.g., feel-good, thrilling, romantic, dystopian), Rating like IMDB, Anything you've enjoyed recently for similar recommendations. The more details you provide, the better I can suggest something you'll love. What are you in the mood to watch today?",
-      }),
-    });
+export const load: PageServerLoad = async ({ fetch }) => {
+  const openai = new OpenAI({ apiKey: PRIVATE_OPENAI_API_KEY });
+  let greetingnote =
+    "Hi, I’m StreamMate,"
+  // " your personal movie taste budder!, here to help you find the perfect movie or series to recommend. Just tell me what you're in the mood for, like: Genre(e.g., action, comedy, drama, horror), year(1990 t0 2025), Mood or theme(e.g., feel - good, thrilling, romantic, dystopian), Rating like IMDB, Anything you've enjoyed recently for similar recommendations. The more details you provide, the better I can suggest something you'll love.What are you in the mood to watch today ? ";
 
-    const data = await response.json();
+  const mp3 = await openai.audio.speech.create({
+    model: "tts-1",
+    voice: "alloy",
+    input: greetingnote,
+  });
+  const buffer = Buffer.from(await mp3.arrayBuffer());
+  const base64Audio = buffer.toString("base64");
 
-    if (response.ok && data.audio) {
-      greetingnote = new Audio(`${data.audio}?t=${Date.now()}`);
-      greetingnote.play().catch((err) => {
-        console.error("Error playing audio:", err);
-      });
-    } else {
-      console.error("Error:", data.error);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-  }
-
-  return { greetingnote };
+  return { base64Audio };
 };
