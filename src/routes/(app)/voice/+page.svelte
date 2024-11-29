@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { goto } from "$app/navigation";
+  import { onDestroy, onMount } from "svelte";
   export let data;
   let { base64Audio } = data;
 
@@ -10,6 +11,7 @@
   let audioChunks: Blob[] = [];
   let audioUrl: string | null = null;
   let audio: HTMLAudioElement | null = null;
+  let backgroundMusic: HTMLAudioElement | null = null;
   let showOverlay = true;
 
   async function startRecording() {
@@ -57,19 +59,23 @@
       });
       const data = await response.json();
 
-      if (response.ok && data.base65Audio) {
-        const audioBlob = new Blob(
-          [Uint8Array.from(atob(data.base65Audio), (c) => c.charCodeAt(0))],
-          { type: "audio/mpeg" }
-        );
-        audioUrl = URL.createObjectURL(audioBlob);
-        audio = new Audio(audioUrl);
-        audio
-          .play()
-          .then(() => {
-            showOverlay = false;
-          })
-          .catch((err) => console.error("Error playing audio:", err));
+      if (response.ok) {
+        if (data.base65Audio) {
+          const audioBlob = new Blob(
+            [Uint8Array.from(atob(data.base65Audio), (c) => c.charCodeAt(0))],
+            { type: "audio/mpeg" }
+          );
+          audioUrl = URL.createObjectURL(audioBlob);
+          audio = new Audio(audioUrl);
+          audio
+            .play()
+            .then(() => {
+              showOverlay = false;
+            })
+            .catch((err) => console.error("Error playing audio:", err));
+        } else if (data.details) {
+          goto("/result");
+        }
       } else {
         console.error("Error:", data.error);
       }
@@ -103,9 +109,17 @@
     } else {
       showOverlay = false;
     }
+    if (backgroundMusic) {
+      backgroundMusic
+        .play()
+        .catch((err) => console.error("Error playing music:", err));
+    }
   }
 
   onMount(() => {
+    backgroundMusic = new Audio("/background-music.mp3");
+    backgroundMusic.loop = true;
+    backgroundMusic.volume = 0.4;
     if (base64Audio) {
       const audioBlob = new Blob(
         [Uint8Array.from(atob(base64Audio), (c) => c.charCodeAt(0))],
@@ -113,6 +127,12 @@
       );
       audioUrl = URL.createObjectURL(audioBlob);
       audio = new Audio(audioUrl);
+    }
+  });
+  onDestroy(() => {
+    if (backgroundMusic) {
+      backgroundMusic.pause();
+      backgroundMusic.currentTime = 0; // Reset the music
     }
   });
 </script>
