@@ -204,7 +204,7 @@
   ></div>
 
  <div
-  class="fixed inset-0 bg-gradient-to-r from-[#561717] from-0% via-black via-50% to-[#01112c] to-100% opacity-85"
+  class="fixed inset-0 bg-gradient-to-r from-[#2a0b0b] from-0% via-black via-50% to-[#01112c] to-100% opacity-85"
 ></div>
 
 
@@ -214,7 +214,7 @@
     </div>
 
     <div
-      class="text-4xl font-medium text-black font-poiret bg-white opacity-35 w-full text-center p-1"
+      class="text-4xl font-medium text-black font-poiret opacity-30 bg-gradient-to-r from-[#2a0b0b]/5 from-0% to-[#01112c]/5 to-100% via-white w-full text-center p-1"
     >
       "Discover Your Movie Taste!"
     </div>
