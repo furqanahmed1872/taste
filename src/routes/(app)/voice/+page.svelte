@@ -57,11 +57,19 @@
       });
       const data = await response.json();
 
-      if (response.ok && data.audio) {
-        const audioresponse = new Audio(`${data.audio}?t=${Date.now()}`);
-        audioresponse.play().catch((err) => {
-          console.error("Error playing audio:", err);
-        });
+      if (response.ok && data.base65Audio) {
+        const audioBlob = new Blob(
+          [Uint8Array.from(atob(data.base65Audio), (c) => c.charCodeAt(0))],
+          { type: "audio/mpeg" }
+        );
+        audioUrl = URL.createObjectURL(audioBlob);
+        audio = new Audio(audioUrl);
+        audio
+          .play()
+          .then(() => {
+            showOverlay = false;
+          })
+          .catch((err) => console.error("Error playing audio:", err));
       } else {
         console.error("Error:", data.error);
       }
@@ -109,7 +117,6 @@
   });
 </script>
 
-
 <div class="relative w-full min-h-screen">
   {#if showOverlay}
     <div
@@ -119,8 +126,8 @@
         <p class="text-2xl mb-4">Welcome! Click to hear the greeting.</p>
         <button
           class="relative animate-pulse inline-flex items-center justify-center px-6 py-3 overflow-hidden font-bold text-white rounded-md shadow-2xl group"
-        on:click={playAudioAndContinue}
-          >
+          on:click={playAudioAndContinue}
+        >
           <span
             class="absolute inset-0 w-full h-full transition duration-300 ease-out opacity-0 bg-gradient-to-br from-pink-600 via-purple-700 to-blue-400 group-hover:opacity-100"
           ></span>
