@@ -109,11 +109,11 @@
     } else {
       showOverlay = false;
     }
-    if (backgroundMusic) {
-      backgroundMusic
-        .play()
-        .catch((err) => console.error("Error playing music:", err));
-    }
+    // if (backgroundMusic) {
+    //   backgroundMusic
+    //     .play()
+    //     .catch((err) => console.error("Error playing music:", err));
+    // }
   }
 
   onMount(() => {
@@ -199,11 +199,14 @@
   {/if}
 
   <div
-    class="fixed inset-0 bg-cover bg-center blur-sm"
+    class="fixed inset-0 bg-cover bg-black/50 bg-center blur-sm"
     style="background-image: url('../back.jpg');"
   ></div>
 
-  <div class="fixed inset-0 bg-black opacity-85"></div>
+ <div
+  class="fixed inset-0 bg-gradient-to-r from-[#561717] from-0% via-black via-50% to-[#01112c] to-100% opacity-85"
+></div>
+
 
   <div class="relative z-10 flex flex-col items-center text-white h-screen">
     <div class="flex justify-center my-2">
