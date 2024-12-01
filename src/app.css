@@ -59,14 +59,39 @@
 .animated-bar:nth-child(10) {
   animation-delay: 2s;
 }
-.animated-bar:focus {
- margin-left: 5%;
- margin-right: 5%;
- margin-top:3%;
- margin-bottom:3%;
- border-radius: 20px;
-opacity: 1;
-
+.sliding-bar {
+  margin: 0;
+  opacity: 0; /* Initially hidden */
+  transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  animation: slideFromOutside 0.8s ease-in-out forwards;
+  overflow: hidden;
 }
 
-/* Define the keyframes for slideInBars */
+/* Staggered animation delays for each bar */
+.sliding-bar:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.sliding-bar:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.sliding-bar:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.sliding-bar:nth-child(4) {
+  animation-delay: 0.8s;
+}
+.sliding-bar:nth-child(5) {
+  animation-delay: 1s;
+}
+
+/* Sliding animation */
+@keyframes slideFromOutside {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

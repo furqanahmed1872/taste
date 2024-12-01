@@ -1,29 +1,29 @@
 <script>
   export let data;
   let { movies } = data
-  // onMount(async () => {
-  //   try {
-  //     let allMovies = get(moviesStore);
+  onMount(async () => {
+    try {
+      let allMovies = get(moviesStore);
 
-  //     for (let i = 1; i < 501; i++) {
-  //       const res = await fetch(`/api/tmdb?year=2022&page=${i}`);
-  //       if (res.ok) {
-  //         const data = await res.json();
-  //         if (data.results && Array.isArray(data.results)) {
-  //           console.log(data);
-  //           moviesStore.update((movies) => [...movies, ...data.results]);
-  //         } else {
-  //           console.error("Unexpected data format:", data);
-  //         }
-  //       } else {
-  //         console.error("Failed to fetch:", await res.json());
-  //       }
-  //     }
-  //     console.log($moviesStore);
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // });
+      for (let i = 1; i < 501; i++) {
+        const res = await fetch(`/api/tmdb?year=2022&page=${i}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.results && Array.isArray(data.results)) {
+            console.log(data);
+            moviesStore.update((movies) => [...movies, ...data.results]);
+          } else {
+            console.error("Unexpected data format:", data);
+          }
+        } else {
+          console.error("Failed to fetch:", await res.json());
+        }
+      }
+      console.log($moviesStore);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  });
 
 </script>
 

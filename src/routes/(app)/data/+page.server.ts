@@ -5,7 +5,7 @@ export const load: PageServerLoad = async () => {
   const { data: movies, error } = await supabase
     .from("Movies") // Replace with your table name
     .select("*")
-    .eq("year", 2024) // Filter by year 2024
+    .eq("year", 2007) // Filter by year 2024
     .gt("rating", 5)
     .or("genre.ilike.%action%,genre.ilike.%horror%"); // Filter for "action" in genre (case-insensitive)
 
