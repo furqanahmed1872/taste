@@ -5,9 +5,9 @@ export const load: PageServerLoad = async () => {
   const { data: movies, error } = await supabase
     .from("Movies") // Replace with your table name
     .select("*")
-    .eq("year", 2024) // Filter by year 2024
-    .gt("rating", 5)
-    .or("genre.ilike.%action%,genre.ilike.%horror%"); // Filter for "action" in genre (case-insensitive)
+    .eq("year", 2021) // Filter by year 2024
+    .gt("rating", 7)
+    .or("genre.ilike.%horror%,genre.ilike.%mystery%"); // Filter for "action" in genre (case-insensitive)
 
   if (error) {
     console.error("Error inserting data:", error);

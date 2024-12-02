@@ -220,7 +220,7 @@
     </div>
 
     <div
-      class="w-1/3 bg-gradient-to-b flex flex-col items-center justify-around from-black via-60% via-black/80 to-black/10 h-full"
+      class="w-1/3 bg-gradient-to-b flex flex-col items-center justify-around from-black via-60% via-black/80 to-black/5 h-full"
     >
       <video
         bind:this={videoElement}
