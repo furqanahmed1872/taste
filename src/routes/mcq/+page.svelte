@@ -42,30 +42,44 @@
   });
 </script>
 
-<!-- Background Image (fixed position) -->
-<div class="fixed inset-0 bg-cover bg-center blur-sm transition-all duration-1000 ease-in-out" style="background-image: url('../back.jpg');"></div>
+
+<style>
+
+
+
+</style>
+
+
+<div class="fixed inset-0 bg-cover bg-center " style="background-image: url('../back.jpg');"></div>
 
 <!-- Color Overlay -->
-<div class="fixed inset-0 bg-gradient-to-r from-rose-950 to-cyan-950 opacity-90 transition-opacity duration-1000 ease-in-out"></div>
+<div class="fixed inset-0 bg-gradient-to-r from-[#051721] via-black to-[#210505] opacity-95 transition-opacity  "></div>
 
 <!-- Main Content -->
-<div class="relative z-10 h-screen text-white py-6 flex flex-col items-center">
-  <!-- Logo with Spinning Animation -->
-  <li class="flex justify-center animate-spin-slow">
-    <img src="../logo.png" alt="Logo" class="h-28 w-32" />
-  </li>
+<div class="relative z-10 flex flex-col text-white h-screen ">
+  <!-- Logo -->
+
 
   <!-- Main Text -->
-  <div class="bg-white text-4xl my-7 h-fit text-black font-poiret opacity-50 w-full text-center p-1">
-    "Discover Your Movie Taste!"
+  <div class="relative  text-4xl z-10 bg-gradient-to-r from-[#fff0] h-fit via-sky-50 font-semibold flex justify-center font-poiret text-black opacity-70 w-full text-center p-4">
+    <!-- Centered Logo -->
+    <img
+      src="../logo.png"
+      alt="Logo"
+      class="absolute top-1/2 left-1/2  transform -translate-x-1/2 -translate-y-1/2 h-20 z-10 opacity-90"
+    />
+    <!-- Text -->
+    <div class="relative z-10 flex items-center justify-center">
+      "Discover Your  <b class="text-[#fff0]">---------</b>Movie Taste!"
+    </div>
   </div>
+  
 
-  <!-- Movies and Series Posters -->
-  <div class="w-full h-full flex relative z-10 justify-center gap-4 my-5 transition-transform duration-500 ease-in-out">
-    <!-- Movies -->
+  <div class="w-full flex  z-10 justify-center gap-4 my-10 h-full ">
+
     <button
       id="movies-poster"
-      class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
+      class="h-full md:w-1/5 w-full rounded-xl bg-cover  bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
       style="background-image: url('https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg');"
       on:click={() => handleDivClick('movies')}
     >
@@ -76,7 +90,7 @@
         Movies
       </div>
     </button>
-
+  
     <!-- Series -->
     <button
       id="series-poster"
@@ -92,14 +106,14 @@
       </div>
     </button>
   </div>
-
-  <!-- Conditionally render 'Next' button only after clicking a div -->
+  
+  
   {#if clickedDiv}
     <a 
     href="/mcq/1"
-    class="bg-custom-dark font-poiret text-3xl p-4 rounded-xl opacity-80 my-auto transition-opacity duration-500 ease-in-out">
+    class="bg-custom-dark font-poiret text-3xl  p-4 w-fit mx-auto rounded-xl opacity-80 my-4 transition-opacity duration-500 ease-in-out">
       Next
     </a>
-  {/if}
-</div>
+  {/if} 
 
+</div>

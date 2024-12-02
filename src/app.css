@@ -4,8 +4,88 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Keyframe for slide-in animation */
-@keyframes slide-in {
+/* Keyframe animation for sliding bars */
+@keyframes slideInBars {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animated bars */
+.animated-bar {
+ margin: 0;
+  transition: margin 0.5s ease-in-out;
+  animation: slideInBars 0.8s ease-in-out forwards;
+  overflow: hidden;
+  opacity: 0; /* Start hidden */
+}
+
+/* Delay for each bar */
+.animated-bar:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.animated-bar:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.animated-bar:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.animated-bar:nth-child(4) {
+  animation-delay: 0.8s;
+}
+.animated-bar:nth-child(5) {
+  animation-delay: 1s;
+}
+.animated-bar:nth-child(6) {
+  animation-delay: 1.2s;
+}
+.animated-bar:nth-child(7) {
+  animation-delay: 1.4s;
+}
+.animated-bar:nth-child(8) {
+  animation-delay: 1.6s;
+}
+.animated-bar:nth-child(9) {
+  animation-delay: 1.8s;
+}
+.animated-bar:nth-child(10) {
+  animation-delay: 2s;
+}
+.sliding-bar {
+  margin: 0;
+  opacity: 0; /* Initially hidden */
+  transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  animation: slideFromOutside 0.8s ease-in-out forwards;
+  overflow: hidden;
+}
+
+/* Staggered animation delays for each bar */
+.sliding-bar:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.sliding-bar:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.sliding-bar:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.sliding-bar:nth-child(4) {
+  animation-delay: 0.8s;
+}
+.sliding-bar:nth-child(5) {
+  animation-delay: 1s;
+}
+
+/* Sliding animation */
+@keyframes slideFromOutside {
   0% {
     transform: translateX(-100%);
     opacity: 0;
@@ -15,81 +95,3 @@
     opacity: 1;
   }
 }
-
-@keyframes slide-out {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Base Styles for Animated Bars */
-.animated-bar {
-   /* Default width */
-  opacity: 0.5; /* Default opacity */
-  transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition for hover/selection */
-  animation: slide-in 1s ease-in-out forwards;
-
-}
-
-.animated-bar-left {
-  /* Default width */
- opacity: 0.5; /* Default opacity */
- transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition for hover/selection */
- animation: slide-in 1s ease-in-out forwards;
-
-}
-
-
-
-/* Delayed Animation for Each Bar */
-.animated-bar {
-  --delay: 0.2s;
-}
-.animated-bar:nth-child(2) {
-  --delay: 0.4s;
-}
-.animated-bar:nth-child(3) {
-  --delay: 0.6s;
-}
-.animated-bar:nth-child(4) {
-  --delay: 0.8s;
-}
-.animated-bar:nth-child(5) {
-  --delay: 1s;
-}
-.animated-bar:nth-child(6) {
-  --delay: 1.2s;
-}
-.animated-bar:nth-child(7) {
-  --delay: 1.4s;
-}
-.animated-bar:nth-child(8) {
-  --delay: 1.6s;
-}
-.animated-bar:nth-child(9) {
-  --delay: 1.8s;
-}
-.animated-bar:nth-child(10) {
-  --delay: 2s;
-}
-
-
-
-  @keyframes spinSlow {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .spin-slow {
-    animation: spinSlow 5s linear infinite;
-  }
-  
