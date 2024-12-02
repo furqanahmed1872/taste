@@ -1,35 +1,7 @@
 <script>
-  import { onDestroy, onMount } from "svelte";
-  import { writable } from "svelte/store";
-  import { get } from "svelte/store";
   export let data;
   let { movies } = data;
 
-  // Initialize the store with an empty array
-  const moviesStore = writable([]);
-  // onMount(async () => {
-  //   try {
-  //     let allMovies = get(moviesStore);
-
-  //     for (let i = 1; i < 408; i++) {
-  //       const res = await fetch(`/api/tmdb?year=2019&page=${i}`);
-  //       if (res.ok) {
-  //         const data = await res.json();
-  //         if (data.results && Array.isArray(data.results)) {
-  //           console.log(data);
-  //           moviesStore.update((movies) => [...movies, ...data.results]);
-  //         } else {
-  //           console.error("Unexpected data format:", data);
-  //         }
-  //       } else {
-  //         console.error("Failed to fetch:", await res.json());
-  //       }
-  //     }
-  //     console.log($moviesStore);
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // });
 </script>
 
 <h1 class="text-3xl font-semibold text-center my-8">Movie List</h1>

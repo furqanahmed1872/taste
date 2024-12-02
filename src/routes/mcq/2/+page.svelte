@@ -136,9 +136,5 @@
       </div>
     </div>
 
-    <a 
 
 
-         
-    <div class="row-span-10 my-4 grid gap-2 overflow-hidden relative">
-      <!-- Animated Bars -->
