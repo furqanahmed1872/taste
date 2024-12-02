@@ -2,27 +2,29 @@ import { supabase } from "$lib/supabaseClient";
 import type { PageServerLoad, Actions } from "./$types.js";
 
 export const load: PageServerLoad = async () => {
+  
   const { data: movies, error } = await supabase
-    .from("Movies") // Replace with your table name
+    .from("series")
     .select("*")
-    .eq("year", 2021) // Filter by year 2024
+    .eq("year", 2021)
     .gt("rating", 7)
-    .or("genre.ilike.%horror%,genre.ilike.%mystery%"); // Filter for "action" in genre (case-insensitive)
-
+    .or("genre.ilike.%horror%,genre.ilike.%mystery%");
+  
+  
   if (error) {
     console.error("Error inserting data:", error);
   }
 
-  return { movies };
+  return {movies};
 };
-  // Filters
-  // .eq('column', 'Equal to')
-  // .gt('column', 'Greater than')
-  // .lt('column', 'Less than')
-  // .gte('column', 'Greater than or equal to')
-  // .lte('column', 'Less than or equal to')
-  // .like('column', '%CaseSensitive%')
-  // .ilike('column', '%CaseInsensitive%')
-  // .is('column', null)
-  // .in('column', ['Array', 'Values'])
-  // .neq('column', 'Not equal to')
+// Filters
+// .eq('column', 'Equal to')
+// .gt('column', 'Greater than')
+// .lt('column', 'Less than')
+// .gte('column', 'Greater than or equal to')
+// .lte('column', 'Less than or equal to')
+// .like('column', '%CaseSensitive%')
+// .ilike('column', '%CaseInsensitive%')
+// .is('column', null)
+// .in('column', ['Array', 'Values'])
+// .neq('column', 'Not equal to')
