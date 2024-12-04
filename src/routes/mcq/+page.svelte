@@ -70,7 +70,7 @@
     />
     <!-- Text -->
     <div class="relative z-10 flex items-center justify-center">
-      "Discover Your  <b class="text-[#fff0]">---------</b>Movie Taste!"
+      "Discover Yo <b class="text-[#fff0]">---------</b>Movie Taste!"
     </div>
   </div>
   

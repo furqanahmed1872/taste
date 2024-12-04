@@ -1,32 +1,20 @@
 <script>
-  let clickedBars = []; // Array to store selected bars
+  import { arrone, arrtwo } from './data.js';
 
-  let arr = [
-    'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-    'Drama', 'Family', 'Fantasy', 'History'
-  ];
-  
-  let arrtwo = [
-    'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 
-    'Thriller', 'War', 'Western', 'Biography', "Doesn't matter"
-  ];
+  let clickedBars = []; // Array to store selected bars
 
   function handleClick(bar) {
     if (bar === "Doesn't matter") {
       if (!clickedBars.includes(bar)) {
-   
         clickedBars = [bar];
       }
     } else {
       if (clickedBars.includes("Doesn't matter")) {
-     
         clickedBars = [bar];
       } else {
         if (clickedBars.includes(bar)) {
-       
           clickedBars = clickedBars.filter((item) => item !== bar);
         } else {
-       
           if (clickedBars.length >= 3) {
             clickedBars.shift();
           }
@@ -36,6 +24,7 @@
     }
   }
 </script>
+
 
 
 <div

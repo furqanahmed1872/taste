@@ -25,21 +25,22 @@
     </div>
   </div>
   
-<div class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium my-auto p-4 rounded-lg font-poiret">
+<div class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium p-4 rounded-lg font-poiret">
 Write Your dream story And get preference !
 </div>
 
 <div class="w-full justify-center flex">
-<textarea name="" id="ddddddddd" class="p-2 w-1/2 text-[#0B4F6C] text-3xl  h-full my-auto justify-center outline-none rounded-lg">
-
-dddddddddddd
-
-</textarea>
+  <textarea
+    id="dream-story"
+    class="p-4 w-1/2 h-48 text-[#0B4F6C] text-lg font-medium bg-[#F8FAFC] rounded-lg shadow-lg resize-none outline-none focus:ring-4 focus:ring-[#0B4F6C] placeholder-[#8F8F8F] placeholder-opacity-75 transition-all duration-300"
+    placeholder="Start writing your dream story here..."
+  ></textarea>
 </div>
 
 
 <div class="mx-auto my-auto">
-  <button>Skip</button><button>NEXT</button>
+  <button class="bg-gray-700 p-3 rounded-xl">NEXT</button>
+  <button class="bg-white p-3 rounded-xl  text-black">Skip</button>
 </div>
 <div></div>
      
