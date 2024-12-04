@@ -2,7 +2,7 @@
   import { goto } from "$app/navigation";
   import { onDestroy, onMount } from "svelte";
   export let data;
-  let { base64Audio } = data;
+  let { base64Audio, num } = data;
 
   let imageSrc = "../mute.png";
   let videoElement;
@@ -27,7 +27,7 @@
 
       mediaRecorder.onstop = () => {
         const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-        sendMessage(audioBlob);
+        sendMessage(audioBlob, num);
         audioChunks = [];
       };
     } catch (error) {
@@ -46,11 +46,12 @@
     }
   }
 
-  async function sendMessage(audioBlob: Blob) {
+  async function sendMessage(audioBlob: Blob, selectedVoice: string) {
     const formData = new FormData();
     formData.append("file", audioBlob, "speech.wav");
     formData.append("model", "whisper-1");
     formData.append("language", "en");
+    formData.append("selectedVoice", selectedVoice);
 
     try {
       const response = await fetch("/api/voice-chat", {
@@ -74,7 +75,9 @@
             })
             .catch((err) => console.error("Error playing audio:", err));
         } else if (data.details) {
-          goto("/result");
+          goto("/result", {
+            state: { details: data.details },
+          });
         }
       } else {
         console.error("Error:", data.error);
@@ -203,10 +206,9 @@
     style="background-image: url('../back.jpg');"
   ></div>
 
- <div
-  class="fixed inset-0 bg-gradient-to-r from-[#2a0b0b] from-0% via-black via-50% to-[#01112c] to-100% opacity-85"
-></div>
-
+  <div
+    class="fixed inset-0 bg-gradient-to-r from-[#2a0b0b] from-0% via-black via-50% to-[#01112c] to-100% opacity-85"
+  ></div>
 
   <div class="relative z-10 flex flex-col items-center text-white h-screen">
     <div class="flex justify-center my-2">

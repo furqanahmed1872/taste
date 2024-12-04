@@ -9,7 +9,9 @@
 <div class="grid grid-cols-4 gap-6">
   {#if movies}
     {#each movies as movie}
-      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <a 
+      href="/movies/{movie.title}"
+      class="bg-white rounded-lg shadow-lg overflow-hidden ease-in-out hover:scale-105">
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster}`}
           alt={movie.title}
@@ -24,7 +26,7 @@
             Genres: {movie.genre}
           </p>
         </div>
-      </div>
+      </a>
     {/each}
   {:else}
     Still loading

@@ -7,6 +7,8 @@ import { PUBLIC_SUPABASE_URL } from "$env/static/public";
 import { json } from "@sveltejs/kit";
 import OpenAI from "openai";
 
+const voices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"] as const;
+
 let details: {
   missing: any;
   year?: any;
@@ -111,7 +113,7 @@ function handleUserInput(input) {
   };
 }
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request, locals }) => {
   const supabase = createClient(
     PUBLIC_SUPABASE_URL,
     PRIVATE_SUPABASE_SERVICE_ROLE_KEY
@@ -119,6 +121,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const openai = new OpenAI({ apiKey: PRIVATE_OPENAI_API_KEY });
   const formData = await request.formData();
   const audioFile = formData.get("file");
+  const selectedVoice = formData.get("selectedVoice");
 
   if (!(audioFile instanceof Blob)) {
     return new Response(JSON.stringify({ error: "Invalid file upload" }), {
@@ -154,7 +157,7 @@ export const POST: RequestHandler = async ({ request }) => {
     if (response.prompt) {
       const mp3 = await openai.audio.speech.create({
         model: "tts-1",
-        voice: "alloy",
+        voice: selectedVoice as (typeof voices)[number],
         input: response.prompt,
       });
       const buffer = Buffer.from(await mp3.arrayBuffer());
@@ -185,6 +188,7 @@ export const POST: RequestHandler = async ({ request }) => {
       });
     }
   } else {
+    locals.resultData = details
     return json({
       details,
     });

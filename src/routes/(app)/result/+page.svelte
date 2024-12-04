@@ -1,3 +1,11 @@
+<script>
+  import { page } from "$app/stores";
+  import { derived } from "svelte/store";
+
+  const resultData = derived(page, ($page) => $page.state || {});
+  console.log($resultData);
+</script>
+
 <div class="relative w-full min-h-screen">
   <div
     class="fixed inset-0 bg-cover bg-center"
@@ -21,7 +29,6 @@
       </p>
     </div>
     <div
-
       class="relative w-full h-fit grid grid-cols-12 grid-rows-3 py-10 my-20"
     >
       <div class="absolute inset-0 bg-[#080D15] opacity-70 z-0"></div>
@@ -60,9 +67,7 @@
       class="flex w-fit h-fit bg-white p-4 rounded-xl justify-center items-center"
     >
       <button
-
         class="bg-black rounded-full font-poiret w-16 h-16 text-2xl flex justify-center items-center mx-2"
-
         >Join</button
       >
       <div class="text-black font-poiret text-2xl mx-2">
