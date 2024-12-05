@@ -188,7 +188,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
       });
     }
   } else {
-    locals.resultData = details
+    locals.resultData = details;
     return json({
       details,
     });

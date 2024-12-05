@@ -2,7 +2,7 @@
   import { goto } from "$app/navigation";
   import { onDestroy, onMount } from "svelte";
   export let data;
-  let { base64Audio, num } = data;
+  let { base64Audio1, base64Audio2, num } = data;
 
   let imageSrc = "../mute.png";
   let videoElement;
@@ -46,12 +46,20 @@
     }
   }
 
-  async function sendMessage(audioBlob: Blob, selectedVoice: string) {
+  async function sendMessage(audioBlob: Blob, selectedVoice: number) {
+    const voices = [
+      "alloy",
+      "echo",
+      "fable",
+      "onyx",
+      "nova",
+      "shimmer",
+    ] as const;
     const formData = new FormData();
     formData.append("file", audioBlob, "speech.wav");
     formData.append("model", "whisper-1");
     formData.append("language", "en");
-    formData.append("selectedVoice", selectedVoice);
+    formData.append("selectedVoice", voices[selectedVoice]);
 
     try {
       const response = await fetch("/api/voice-chat", {
@@ -61,23 +69,55 @@
       const data = await response.json();
 
       if (response.ok) {
-        if (data.base65Audio) {
+        if (data.base64Audio) {
+          // Corrected from base65Audio
           const audioBlob = new Blob(
-            [Uint8Array.from(atob(data.base65Audio), (c) => c.charCodeAt(0))],
+            [Uint8Array.from(atob(data.base64Audio), (c) => c.charCodeAt(0))],
             { type: "audio/mpeg" }
           );
-          audioUrl = URL.createObjectURL(audioBlob);
-          audio = new Audio(audioUrl);
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
+
           audio
             .play()
             .then(() => {
+              console.log("Audio playback successful");
               showOverlay = false;
             })
-            .catch((err) => console.error("Error playing audio:", err));
+            .catch((err) => {
+              console.error("Error playing audio:", err);
+            });
+        } else if (data.details && base64Audio2) {
+          // Handle the second audio
+          const audioBlob = new Blob(
+            [Uint8Array.from(atob(base64Audio2), (c) => c.charCodeAt(0))],
+            { type: "audio/mpeg" }
+          );
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
+
+          audio
+            .play()
+            .then(() => {
+              console.log("Second audio playback successful");
+            })
+            .catch((err) => {
+              console.error("Error playing second audio:", err);
+            });
+
+          // Navigate after playback
+          audio.onended = () => {
+            goto(
+              `/result?details=${encodeURIComponent(JSON.stringify(data.details))}`
+            );
+          };
         } else if (data.details) {
-          goto("/result", {
-            state: { details: data.details },
-          });
+          console.log("No audio found, navigating to result.");
+          setTimeout(() => {
+            goto(
+              `/result?details=${encodeURIComponent(JSON.stringify(data.details))}`
+            );
+          }, 5000);
         }
       } else {
         console.error("Error:", data.error);
@@ -123,9 +163,9 @@
     backgroundMusic = new Audio("/background-music.mp3");
     backgroundMusic.loop = true;
     backgroundMusic.volume = 0.4;
-    if (base64Audio) {
+    if (base64Audio1) {
       const audioBlob = new Blob(
-        [Uint8Array.from(atob(base64Audio), (c) => c.charCodeAt(0))],
+        [Uint8Array.from(atob(base64Audio1), (c) => c.charCodeAt(0))],
         { type: "audio/mpeg" }
       );
       audioUrl = URL.createObjectURL(audioBlob);

@@ -1,9 +1,12 @@
-import type { PageServerLoad } from "./$types.js";
-import { PRIVATE_OPENAI_API_KEY } from "$env/static/private";
-import OpenAI from "openai";
+import { error } from "@sveltejs/kit";
 
-export const load: PageServerLoad = async () => {
- 
+export async function load({ url }) {
+  const detailsParam = url.searchParams.get("details");
+  if (!detailsParam) {
+    throw error(400, "Details not provided");
+  }
 
-  return { base64Audio, num };
-};
+  const details = JSON.parse(detailsParam);
+  console.log(details);
+  return { details };
+}
