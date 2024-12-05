@@ -1,33 +1,21 @@
 <script>
-  let clickedBars = []; // Array to store selected bars
+  import { arrone, arrtwo } from './data.js';
 
-  let arr = [
-    'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
-    'Drama', 'Family', 'Fantasy', 'History'
-  ];
-  
-  let arrtwo = [
-    'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 
-    'Thriller', 'War', 'Western', 'Biography', "Doesn't matter"
-  ];
+  let clickedBars = []; // Array to store selected bars
 
   function handleClick(bar) {
     if (bar === "Doesn't matter") {
       if (!clickedBars.includes(bar)) {
-        // If "Doesn't matter" is selected and not already in the array, add it
         clickedBars = [bar];
       }
     } else {
       if (clickedBars.includes("Doesn't matter")) {
-        // If "Doesn't matter" is already selected, remove it when selecting another option
         clickedBars = [bar];
       } else {
         if (clickedBars.includes(bar)) {
-          // If the bar is already selected, remove it
           clickedBars = clickedBars.filter((item) => item !== bar);
         } else {
-          // If there are already 5 items, remove the first item before adding the new one
-          if (clickedBars.length >= 5) {
+          if (clickedBars.length >= 3) {
             clickedBars.shift();
           }
           clickedBars = [...clickedBars, bar];
@@ -36,6 +24,7 @@
     }
   }
 </script>
+
 
 
 <div

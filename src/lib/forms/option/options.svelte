@@ -1,13 +1,9 @@
 <script>
-  let clickedBar = "";
+ 
+ import { arr} from './data.js';
+ let clickedBar = "";
 
-  let arr = [
-    "Released 5 years ago",
-    "Released 10 years ago",
-    "Released 15 years ago",
-    "Released 20 years ago",
-    "Doesn't matter",
-  ];
+  
 
   function handleClick(bar) {
     clickedBar = bar;
