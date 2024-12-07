@@ -1,9 +1,6 @@
 <script>
-  import { page } from "$app/stores";
-  import { derived } from "svelte/store";
-
-  const resultData = derived(page, ($page) => $page.state || {});
-  console.log($resultData);
+export let data;
+let {movies} = data
 </script>
 
 <div class="relative w-full min-h-screen">
