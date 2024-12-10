@@ -107,17 +107,17 @@
 
           // Navigate after playback
           audio.onended = () => {
-            goto(
-              `/result?details=${encodeURIComponent(JSON.stringify(data.details))}`
-            );
+            // goto(
+            //   `/result?details=${encodeURIComponent(JSON.stringify(data.details))}`
+            // );
           };
         } else if (data.details) {
           console.log("No audio found, navigating to result.");
-          setTimeout(() => {
-            goto(
-              `/result?details=${encodeURIComponent(JSON.stringify(data.details))}`
-            );
-          }, 5000);
+          // setTimeout(() => {
+          //   goto(
+          //     `/result?details=${encodeURIComponent(JSON.stringify(data.details))}`
+          //   );
+          // }, 5000);
         }
       } else {
         console.error("Error:", data.error);

@@ -1,6 +1,6 @@
 <script>
-export let data;
-let {movies} = data
+// export let data;
+// let {movies} = data
 </script>
 
 <div class="relative w-full min-h-screen">
