@@ -1,4 +1,4 @@
-<div class="relative w-full min-h-screen">
+<!-- <div class="relative w-full min-h-screen">
   <div
     class="fixed inset-0 bg-cover bg-center"
     style="background-image: url('../bat.jpg');"
@@ -72,4 +72,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
