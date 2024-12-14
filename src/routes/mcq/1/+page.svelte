@@ -1,5 +1,7 @@
 <script>
-  let firstoption = "";
+
+ 
+ let firstoption = "";
   let newcomp = 0; 
 
   let arr = [
