@@ -1,17 +1,17 @@
 <script>
   let clickedBars = []; // Array to store selected bars
 
-  let arr = [
+  let arr4 = [
     'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 
     'Drama', 'Family', 'Fantasy', 'History'
   ];
   
-  let arrtwo = [
+  let arr5 = [
     'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 
     'Thriller', 'War', 'Western', 'Biography', "Doesn't matter"
   ];
 
-  function handleClick(bar) {
+  function handleClick4(bar) {
     if (bar === "Doesn't matter") {
       if (!clickedBars.includes(bar)) {
         // If "Doesn't matter" is selected and not already in the array, add it
@@ -68,7 +68,7 @@
   class="grid grid-cols-3 grid-rows-10 2xl 2xl:w-1/2 xl:w-2/3 m-8 lg:w-3/4 mx-auto"
 >
   <div class="row-span-10 my-4 grid gap-2 overflow-hidden relative">
-    {#each arr as label, i}
+    {#each arr4 as label, i}
       <button
         class="animated-bar bg-[#0B4F6C] font-poiret text-xl text-center p-2"
         on:click={() => handleClick(label)}
@@ -109,7 +109,7 @@
 
   <div class="row-span-10 my-4 grid gap-2 overflow-hidden relative">
     <!-- Animated Bars -->
-    {#each arrtwo as label, i}
+    {#each arr5 as label, i}
       <button
         class="animated-bar bg-[#0B4F6C] font-poiret text-xl text-center p-2"
         on:click={() => handleClick(label)}
