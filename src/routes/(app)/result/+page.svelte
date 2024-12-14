@@ -1,4 +1,5 @@
 <script>
+
   let movies = [
     {
       title: "Kung Fu Hustle",
@@ -88,6 +89,7 @@
     <div class="row-span-3 xl:block hidden" ></div>
     <div class="font-poiret text-xl font-medium col-span-4">{movies[currentIndex].summary}</div>
     <div class="flex col-span-4">
+
       <button
         class="z-10 w-fit bg-black opacity-70 m-2 h-fit rounded-xl font-poiret text-2xl text-white text-right flex justify-center items-center p-2"
       >
@@ -107,10 +109,12 @@
     </div>
   </div>
 
+
   <div class="flex w-fit h-fit bg-white p-2 rounded-xl justify-center items-center mx-auto my-auto">
     <button class="rounded-full font-poiret bg-black w-12 h-12 text-lg flex justify-center items-center mx-2">Join</button>
     <div class="text-black font-poiret text-xl">
       You just found your community want to talk to like you <b class="text-red-800">{movies[currentIndex].title}</b>
+
     </div>
   </div>
 </div>
