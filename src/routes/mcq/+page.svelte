@@ -1,5 +1,23 @@
 <script>
   import { onMount } from "svelte";
+  let firstoption = "";
+  let newcomp = 2; 
+
+  let arr = [
+    "Released 5 years ago",
+    "Released 10 years ago",
+    "Released 15 years ago",
+    "Released 20 years ago",
+    "Doesn't matter"
+  ];
+
+  function handleClick(bar) {
+    firstoption = bar;
+  }
+
+  function handleNext() {
+    newcomp++; 
+  }
 
   const movieImages = [
     "https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg",
@@ -56,7 +74,11 @@
 <div class="fixed inset-0 bg-gradient-to-r from-[#051721] via-black to-[#210505] opacity-95 transition-opacity  "></div>
 
 <!-- Main Content -->
-<div class="relative z-10 flex flex-col text-white h-screen ">
+<div
+  class={`relative z-10 text-white h-screen ${
+    newcomp < 0 ? "grid" : "flex flex-col"
+  }`}
+>
   <!-- Logo -->
 
 
@@ -75,7 +97,7 @@
   </div>
   
 
-  <div class="w-full flex  z-10 justify-center gap-4 my-10 h-full ">
+ <div class="w-full flex  z-10 justify-center gap-4 my-10 h-full ">
 
     <button
       id="movies-poster"
@@ -91,7 +113,7 @@
       </div>
     </button>
   
-    <!-- Series -->
+
     <button
       id="series-poster"
       class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
@@ -106,7 +128,7 @@
       </div>
     </button>
   </div>
-  
+ 
   
   {#if clickedDiv}
     <a 

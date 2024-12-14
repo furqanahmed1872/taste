@@ -80,12 +80,14 @@
     <div class="relative z-10 flex items-center justify-center h-fit">"Uncover your taste"</div>
   </div>
 
-  <div class="bg-[#080D15] opacity-70 h-fit grid grid-cols-4 grid-rows-3 p-4 justify-center items-center my-auto">
+  <div class="bg-[#080D15] opacity-70 h-fit grid xl:grid-cols-7 grid-cols-5 grid-rows-3 p-4 justify-center items-center my-auto">
+    <div class="row-span-3 xl:block hidden"></div>
     <img src={movies[currentIndex].poster} alt="" class="h-60 w-auto rounded-lg row-span-3 mx-auto">
 
-    <div class="font-poiret text-3xl font-bold col-span-3">{movies[currentIndex].title}</div>
-    <div class="font-poiret text-xl font-medium col-span-3">{movies[currentIndex].summary}</div>
-    <div class="flex col-span-3">
+    <div class="font-poiret text-3xl font-bold col-span-4">{movies[currentIndex].title}</div>
+    <div class="row-span-3 xl:block hidden" ></div>
+    <div class="font-poiret text-xl font-medium col-span-4">{movies[currentIndex].summary}</div>
+    <div class="flex col-span-4">
       <button
         class="z-10 w-fit bg-black opacity-70 m-2 h-fit rounded-xl font-poiret text-2xl text-white text-right flex justify-center items-center p-2"
       >
