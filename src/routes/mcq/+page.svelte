@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-
+   import Opt from "$lib/forms/option/opt.svelte";
   let isGrid = false; // Tracks layout change
   let clickedDiv = null;
 
@@ -12,10 +12,10 @@
   ];
 
   const seriesImages = [
-    "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/50f59dfe-f3de-4253-98ed-41972905ee82/dd6bow4-323638cf-0887-4228-9a06-8094141440c8.jpg",
-    "https://resizing.flixster.com/lpJkDxnEFNQT1OWJjnmYfvpAHJ0=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvUlRUVjI2NjgyOS53ZWJw",
-    "https://mir-s3-cdn-cf.behance.net/project_modules/1400/1fde52184551123.6553f66dbce60.jpg",
-    "https://www.bram.us/wordpress/wp-content/uploads/2016/10/e06e8043706275.57f99a2e465fb.jpg",
+    "https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg",
+    "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg",
+    "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "https://m.media-amazon.com/images/M/MV5BMjA4NDI0MTIxNF5BMl5BanBnXkFtZTYwNTM0MzY2._V1_.jpg",
   ];
 
   let movieIndex = 0;
@@ -131,6 +131,8 @@
       }
     }
   }
+
+
 </script>
 
 <div
@@ -163,45 +165,47 @@
 
   <!-- Content Section -->
   {#if newcomp === 0}
-    <div class="w-full flex z-10 justify-center gap-4 my-10 h-full">
-      <button
-        id="movies-poster"
-        class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
-        style="background-image: url('https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg');"
-        on:click={() => handleDivClick("movies")}
+  <div class="w-full flex z-10 justify-center gap-4 my-10 h-full">
+    <button
+      id="movies-poster"
+      class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
+      style="background-image: url('https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg');"
+      on:click={() => handleDivClick("movies")}
+    >
+      <div
+        class="h-full w-full bg-black rounded-xl text-center flex items-center justify-center font-poiret text-6xl font-bold"
+        style="opacity: {clickedDiv === 'movies' ? 1 : 0.6}"
       >
-        <div
-          class="h-full w-full bg-black rounded-xl text-center flex items-center justify-center font-poiret text-6xl font-bold"
-          style="opacity: {clickedDiv === 'movies' ? 1 : 0.6}"
-        >
-          Movies
-        </div>
-      </button>
+        Movies
+      </div>
+    </button>
 
-      <button
-        id="series-poster"
-        class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
-        style="background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/50f59dfe-f3de-4253-98ed-41972905ee82/dd6bow4-323638cf-0887-4228-9a06-8094141440c8.jpg');"
-        on:click={() => handleDivClick("series")}
+    <button
+      id="series-poster"
+      class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
+      style="background-image: url('https://preview.redd.it/drd9eqknks481.jpg?width=1080&crop=smart&auto=webp&s=00776b18b0215c23db02ed7392ec7f7a52ab3c01');"
+      on:click={() => handleDivClick("series")}
+    >
+      <div
+        class="h-full w-full bg-black rounded-xl text-center flex items-center justify-center font-poiret text-6xl font-bold"
+        style="opacity: {clickedDiv === 'series' ? 1 : 0.6}"
       >
-        <div
-          class="h-full w-full bg-black rounded-xl text-center flex items-center justify-center font-poiret text-6xl font-bold"
-          style="opacity: {clickedDiv === 'series' ? 1 : 0.6}"
-        >
-          Series
-        </div>
-      </button>
-    </div>
+        Series
+      </div>
+    </button>
+  </div>
 
-    {#if clickedDiv}
-      <a
-        href="#"
-        class="bg-custom-dark text-3xl p-4 w-fit mx-auto rounded-xl opacity-80 my-4"
-        on:click={handleNext}
-      >
-        Next
-      </a>
-    {/if}
+  {#if clickedDiv}
+    <a
+      href="#"
+      class="bg-custom-dark text-3xl p-4 w-fit mx-auto rounded-xl opacity-80 my-4"
+      on:click={handleNext}
+    >
+      Next
+    </a>
+  {/if}
+
+
   {/if}
 
   {#if newcomp === 1}
@@ -421,25 +425,67 @@
     </div>
   {/if}
   {#if newcomp === 5}
-    <div
-      class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium p-4 rounded-lg font-poiret"
-    >
-      Write Your dream story And get preference !
-    </div>
+  <div
+  class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium p-4 rounded-lg font-poiret"
+>
+  Write Your dream story And get preference!
+</div>
 
-    <div class="w-full justify-center flex">
-      <textarea
-        id="dream-story"
-        class="p-4 w-1/2 h-48 text-[#0B4F6C] text-lg font-medium bg-[#F8FAFC] rounded-lg shadow-lg resize-none outline-none focus:ring-4 focus:ring-[#0B4F6C] placeholder-[#8F8F8F] placeholder-opacity-75 transition-all duration-300"
-        placeholder="Start writing your dream story here..."
-      ></textarea>
-    </div>
+<div class="w-full justify-center flex">
+  <textarea
+    id="dream-story"
+    class="p-4 w-1/2 h-48 text-[#0B4F6C] text-lg font-medium bg-[#F8FAFC] rounded-lg shadow-lg resize-none outline-none focus:ring-4 focus:ring-[#0B4F6C] placeholder-[#8F8F8F] placeholder-opacity-75 transition-all duration-300"
+    placeholder="Start writing your dream story here..."
+  ></textarea>
+</div>
 
-    <div class="mx-auto my-auto">
-      <a href="/result" class="bg-gray-700 p-3 rounded-xl">NEXT</a>
-      <button class="bg-white p-3 rounded-xl text-black">Skip</button>
-    </div>
-    <div></div>
+<div id="error-message" class="text-red-500 text-center mt-2 hidden">
+  Your story should include more than twenty letters!
+</div>
+
+<div class="mx-auto my-auto mt-4 flex gap-4 justify-center">
+  <button
+    id="next-btn"
+    class="bg-gray-700 text-gray-400 p-3 rounded-xl cursor-not-allowed"
+    disabled
+  >
+    NEXT
+  </button>
+  <button class="bg-white text-black p-3 rounded-xl">Skip</button>
+</div>
+
+<script>
+  const textarea = document.getElementById("dream-story");
+  const nextButton = document.getElementById("next-btn");
+  const errorMessage = document.getElementById("error-message");
+
+  textarea.addEventListener("input", () => {
+    // Count the number of letters (ignore spaces and non-alphabet characters)
+    const letterCount = textarea.value.replace(/[^a-zA-Z]/g, "").length;
+
+    if (letterCount > 20) {
+      nextButton.disabled = false;
+      nextButton.classList.remove("bg-gray-700", "text-gray-400", "cursor-not-allowed");
+      nextButton.classList.add("bg-blue-600", "text-white", "cursor-pointer");
+      errorMessage.classList.add("hidden"); // Hide error message
+    } else {
+      nextButton.disabled = true;
+      nextButton.classList.add("bg-gray-700", "text-gray-400", "cursor-not-allowed");
+      nextButton.classList.remove("bg-blue-600", "text-white", "cursor-pointer");
+    }
+  });
+
+  nextButton.addEventListener("click", (event) => {
+    const letterCount = textarea.value.replace(/[^a-zA-Z]/g, "").length;
+
+    if (letterCount <= 20) {
+      event.preventDefault(); // Prevent navigation
+      errorMessage.classList.remove("hidden"); // Show error message
+    }
+  });
+</script>
+
+
   {/if}
 </div>
 
