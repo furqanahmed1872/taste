@@ -55,6 +55,7 @@
       >
         <!-- Option 1: Positioned to the left of the button -->
         <button
+        on:click={()=> goto('mcq')}
           class={`absolute -left-[120px] top-1/2 transform -translate-y-1/2 bg-black/40 hover:bg-black text-white px-4 py-2 rounded-full shadow-md transition-transform duration-300 ${
             showOptions ? "translate-x-0" : "-translate-x-10"
           }`}
