@@ -199,7 +199,7 @@
 
   {#if clickedDiv}
     <a
-      href="#"
+      href=""
       class="bg-custom-dark text-3xl p-4 w-fit mx-auto rounded-xl opacity-80 my-4"
       on:click={handleNext}
     >
@@ -444,21 +444,18 @@
 </div>
 
 <div id="error-message" class="text-red-500 text-center mt-2 hidden">
-  Your story should include more than twenty letters!
+  Your story should include at least 20 letters!
 </div>
 
 <div class="mx-auto my-auto mt-4 flex gap-4 justify-center">
-  <a
-   href="/result"
-  id="next-btn"
-    class="bg-[#0B4F6C] text-gray-400 p-3 rounded-md cursor-not-allowed"
+  <button
+    id="next-btn"
+    class="bg-gray-700 text-gray-400 p-3 rounded-md cursor-not-allowed"
     disabled
   >
     NEXT
-</a>
-  <a 
-   href="/result"
-  class="bg-white text-black p-3 rounded-md">Skip</a>
+  </button>
+  <a href="/result" class="bg-white text-black p-3 rounded-md">Skip</a>
 </div>
 
 <script>
@@ -470,22 +467,25 @@
     // Count the number of letters (ignore spaces and non-alphabet characters)
     const letterCount = textarea.value.replace(/[^a-zA-Z]/g, "").length;
 
-    if (letterCount > 20) {
+    if (letterCount >= 20) {
+      // Enable the button and hide error message
       nextButton.disabled = false;
       nextButton.classList.remove("bg-gray-700", "text-gray-400", "cursor-not-allowed");
       nextButton.classList.add("bg-blue-600", "text-white", "cursor-pointer");
-      errorMessage.classList.add("hidden"); // Hide error message
+      errorMessage.classList.add("hidden");
     } else {
+      // Disable the button and show error message
       nextButton.disabled = true;
       nextButton.classList.add("bg-gray-700", "text-gray-400", "cursor-not-allowed");
       nextButton.classList.remove("bg-blue-600", "text-white", "cursor-pointer");
+      errorMessage.classList.remove("hidden");
     }
   });
 
   nextButton.addEventListener("click", (event) => {
     const letterCount = textarea.value.replace(/[^a-zA-Z]/g, "").length;
 
-    if (letterCount <= 20) {
+    if (letterCount < 20) {
       event.preventDefault(); // Prevent navigation
       errorMessage.classList.remove("hidden"); // Show error message
     }
