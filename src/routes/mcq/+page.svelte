@@ -153,13 +153,15 @@
   <div
     class="relative text-4xl z-10 bg-gradient-to-r from-[#fff0] h-fit via-sky-50 font-semibold flex justify-center font-poiret text-black opacity-70 w-full text-center p-4"
   >
-    <img
+  <a href="/">
+  <img
       src="../logo.png"
       alt="Logo"
       class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-20 z-10 opacity-90"
     />
+  </a>
     <div class="relative z-10 flex items-center justify-center">
-      "Discover Your <b class="text-[#fff0]">---------</b> Movie Taste!"
+      "Discover Your <b style="color: #fff0; user-select: none;">---------</b> Movie Taste!"
     </div>
   </div>
 
@@ -377,6 +379,17 @@
         class="row-span-10 bg-white opacity-70 text-black rounded-3xl font-poiret text-4xl font-semibold justify-center items-center grid p-8 text-center"
       >
         “Select Genre”
+
+        <div class="mx-auto m-4">
+          {#if clickedBars.length > 0}
+            <button
+              on:click={handleNext}
+              class="bg-custom-dark inset-0 opacity-100 w-fit h-fit font-poiret text-2xl p-4 rounded-lg hover:opacity-100"
+            >
+              NEXT
+            </button>
+          {/if}
+        </div>
       </div>
 
       <!-- Container for Red Bars -->
@@ -412,21 +425,12 @@
         {/each}
       </div>
     </div>
-
-    <div class="mx-auto m-4">
-      {#if clickedBars.length > 0}
-        <button
-          on:click={handleNext}
-          class="bg-custom-dark opacity-50 w-fit h-fit font-poiret text-2xl p-2 rounded-lg hover:opacity-100"
-        >
-          NEXT
-        </button>
-      {/if}
-    </div>
+<div></div>
+    
   {/if}
   {#if newcomp === 5}
   <div
-  class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium p-4 rounded-lg font-poiret"
+  class="mx-auto bg-[#0b4f6c59] h-fit text-2xl font-medium p-4 rounded-lg font-poiret"
 >
   Write Your dream story And get preference!
 </div>
@@ -434,7 +438,7 @@
 <div class="w-full justify-center flex">
   <textarea
     id="dream-story"
-    class="p-4 w-1/2 h-48 text-[#0B4F6C] text-lg font-medium bg-[#F8FAFC] rounded-lg shadow-lg resize-none outline-none focus:ring-4 focus:ring-[#0B4F6C] placeholder-[#8F8F8F] placeholder-opacity-75 transition-all duration-300"
+    class="p-4 w-1/2 h-48 text-[#0B4F6C] text-lg font-medium bg-[#ffffff37] rounded-lg shadow-lg resize-none outline-none focus:ring-4 focus:ring-[#0B4F6C] placeholder-[#8F8F8F] placeholder-opacity-75 transition-all duration-300"
     placeholder="Start writing your dream story here..."
   ></textarea>
 </div>
@@ -444,15 +448,17 @@
 </div>
 
 <div class="mx-auto my-auto mt-4 flex gap-4 justify-center">
-  <button
-  on:click={handleNext} 
+  <a
+   href="/result"
   id="next-btn"
-    class="bg-gray-700 text-gray-400 p-3 rounded-xl cursor-not-allowed"
+    class="bg-[#0B4F6C] text-gray-400 p-3 rounded-md cursor-not-allowed"
     disabled
   >
     NEXT
-  </button>
-  <button class="bg-white text-black p-3 rounded-xl">Skip</button>
+</a>
+  <a 
+   href="/result"
+  class="bg-white text-black p-3 rounded-md">Skip</a>
 </div>
 
 <script>
