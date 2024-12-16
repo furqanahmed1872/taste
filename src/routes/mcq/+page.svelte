@@ -12,10 +12,10 @@
   ];
 
   const seriesImages = [
-    "https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BMjA4NDI0MTIxNF5BMl5BanBnXkFtZTYwNTM0MzY2._V1_.jpg",
+    "https://preview.redd.it/drd9eqknks481.jpg?width=1080&crop=smart&auto=webp&s=00776b18b0215c23db02ed7392ec7f7a52ab3c01",
+    "https://m.media-amazon.com/images/M/MV5BMGY4MWIyMzAtMTA1OS00NDc3LWE2ZTktMTQ4NTZmZjIxZjgxXkEyXkFqcGc@._V1_.jpg",
+    "https://lh5.googleusercontent.com/proxy/Iu0mIQHNjAXaRC9IJxRWyOTlIqpr_zsU43Z9jjjTTmeEgAD-0XNXePy5Rp67YmtKc9-_TPDohSvqwktmdhOr0WjXUp0-sEZ2UA_t3g4vG1DvVN6QBAQ",
+    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/def1a127409059.56364ab8e17fa.jpg",
   ];
 
   let movieIndex = 0;
@@ -103,7 +103,7 @@
     "Thriller",
     "War",
     "Western",
-    "Biography",
+    "Horror",
     "Doesn't matter",
   ];
 
@@ -445,7 +445,8 @@
 
 <div class="mx-auto my-auto mt-4 flex gap-4 justify-center">
   <button
-    id="next-btn"
+  on:click={handleNext} 
+  id="next-btn"
     class="bg-gray-700 text-gray-400 p-3 rounded-xl cursor-not-allowed"
     disabled
   >
