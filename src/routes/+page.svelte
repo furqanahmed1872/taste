@@ -20,16 +20,16 @@
 
   <!-- Main Content -->
   <div
-    class="relative w-full z-10 gap-5 flex flex-col items-center text-white py-6"
+    class="relative w-full z-10 gap-5 flex flex-col items-center text-white py-6" 
   >
     <!-- Logo -->
     <div class="flex justify-center w-full">
-      <img src="../logo.png" alt="Logo" class="w-1/5" />
+      <img src="../logo.png" alt="Logo" class="w-32" />
     </div>
 
     <!-- Main Text -->
     <div
-      class="text-5xl text-white font-poiret bg-[#2A0B0B] opacity-70 w-full text-center p-6 my-2"
+      class="text-5xl text-white font-poiret bg-[#2A0B0B] opacity-70 w-full text-center p-6 justify-around"
     >
       <p class="text-8xl">Find Your Taste</p>
       <p class="text-2xl font-thin">
