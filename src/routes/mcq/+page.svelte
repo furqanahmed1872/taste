@@ -1,45 +1,12 @@
 <script>
   import { onMount } from "svelte";
+  import Posterselection from "$lib/mcqs/posterselection.svelte";
   import Opt from "$lib/forms/option/opt.svelte";
-  let isGrid = false; // Tracks layout change
-  let clickedDiv = null;
 
-  const movieImages = [
-    "https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BMjA4NDI0MTIxNF5BMl5BanBnXkFtZTYwNTM0MzY2._V1_.jpg",
-  ];
 
-  const seriesImages = [
-    "https://preview.redd.it/drd9eqknks481.jpg?width=1080&crop=smart&auto=webp&s=00776b18b0215c23db02ed7392ec7f7a52ab3c01",
-    "https://m.media-amazon.com/images/M/MV5BMGY4MWIyMzAtMTA1OS00NDc3LWE2ZTktMTQ4NTZmZjIxZjgxXkEyXkFqcGc@._V1_.jpg",
-    "https://lh5.googleusercontent.com/proxy/Iu0mIQHNjAXaRC9IJxRWyOTlIqpr_zsU43Z9jjjTTmeEgAD-0XNXePy5Rp67YmtKc9-_TPDohSvqwktmdhOr0WjXUp0-sEZ2UA_t3g4vG1DvVN6QBAQ",
-    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/def1a127409059.56364ab8e17fa.jpg",
-  ];
-
-  let movieIndex = 0;
-  let seriesIndex = 0;
-
-  function updatePosters() {
-    document.getElementById("movies-poster").style.backgroundImage =
-      `url('${movieImages[movieIndex]}')`;
-    document.getElementById("series-poster").style.backgroundImage =
-      `url('${seriesImages[seriesIndex]}')`;
-    movieIndex = (movieIndex + 1) % movieImages.length;
-    seriesIndex = (seriesIndex + 1) % seriesImages.length;
-  }
-
-  function handleDivClick(divType) {
-    clickedDiv = divType;
-  }
-
-  onMount(() => {
-    const intervalId = setInterval(updatePosters, 1000);
-    return () => clearInterval(intervalId);
-  });
-  let newcomp = 0; // Tracks the current component state
-  let firstoption = ""; // Stores the selected option
+  let isGrid = false;
+  let newcomp = 0;
+  let firstoption = "";
 
   let arr = [
     "Released 5 years ago",
@@ -50,15 +17,15 @@
   ];
 
   function handleNext() {
-    isGrid = true; // Change layout to grid
-    newcomp++; // Move to the next component
-    console.log("New comp value:", newcomp); // Check the value of newcomp
+    isGrid = true;
+    newcomp++;
+    console.log("New comp value:", newcomp);
   }
   function handleClick(bar) {
-    firstoption = bar; // Set the selected option
+    firstoption = bar;
   }
 
-  let secondoption = ""; // Stores the selected option
+  let secondoption = "";
 
   let arr2 = [
     "Top Movies",
@@ -68,15 +35,15 @@
   ];
 
   function handleClick2(bar) {
-    secondoption = bar; // Set the selected option
+    secondoption = bar;
   }
 
-  let thirdoption = ""; // Stores the selected option
+  let thirdoption = "";
 
   let arr3 = ["Sad 😞", "Neutral 😐", "Happy 😊"];
 
   function handleClick3(bar) {
-    thirdoption = bar; // Set the selected option
+    thirdoption = bar;
   }
 
   let clickedBars = [];
@@ -161,9 +128,8 @@
     </div>
   </div>
 
-  <!-- Content Section -->
   {#if newcomp === 0}
-    <div class="w-full flex z-10 justify-center gap-4 my-10 h-full">
+    <!-- <div class="w-full flex z-10 justify-center gap-4 my-10 h-full">
       <button
         id="movies-poster"
         class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
@@ -194,14 +160,14 @@
     </div>
 
     {#if clickedDiv}
-      <a
-        href="#"
+      <button
         class="bg-custom-dark text-3xl p-4 w-fit mx-auto rounded-xl opacity-80 my-4"
         on:click={handleNext}
       >
         Next
-      </a>
-    {/if}
+      </button>
+    {/if} -->
+    <Posterselection {handleNext}/>
   {/if}
 
   {#if newcomp === 1}
@@ -499,8 +465,4 @@
       });
     </script>
   {/if}
-
 </div>
-
-<style>
-</style>
