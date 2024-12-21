@@ -24,18 +24,20 @@
   >
     <!-- Logo -->
     <div class="flex justify-center w-full">
-      <img src="../logo.png" alt="Logo" class="w-32" />
+
+      <img src="../logo.png" alt="Logo" class="w-28" />
+
     </div>
 
     <!-- Main Text -->
     <div
       class="text-5xl text-white font-poiret bg-[#2A0B0B] opacity-70 w-full text-center p-6 justify-around"
     >
-      <p class="text-8xl">Find Your Taste</p>
-      <p class="text-2xl font-thin">
-        This is a AI website that can aquire your taste by just <br /> some
-        option and this can also help you find people with <br /> your similar
-        taste and this website also do steaming of <br /> movies that you choose
+      <p class="text-4xl">Find Your Taste</p>
+      <p class="text-lg font-thin">
+        This is a AI website that can aquire your taste by just some
+        option and this can <br />also help you find people with  your similar
+        taste and this website also do steaming of  movies that <br />you choose
       </p>
     </div>
 

@@ -1,45 +1,12 @@
 <script>
   import { onMount } from "svelte";
-   import Opt from "$lib/forms/option/opt.svelte";
-  let isGrid = false; // Tracks layout change
-  let clickedDiv = null;
+  import Posterselection from "$lib/mcqs/posterselection.svelte";
+  import Opt from "$lib/forms/option/opt.svelte";
 
-  const movieImages = [
-    "https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BOTgyOGQ1NDItNGU3Ny00MjU3LTg2YWEtNmEyYjBiMjI1Y2M5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BMjA4NDI0MTIxNF5BMl5BanBnXkFtZTYwNTM0MzY2._V1_.jpg",
-  ];
 
-  const seriesImages = [
-    "https://preview.redd.it/drd9eqknks481.jpg?width=1080&crop=smart&auto=webp&s=00776b18b0215c23db02ed7392ec7f7a52ab3c01",
-    "https://m.media-amazon.com/images/M/MV5BMGY4MWIyMzAtMTA1OS00NDc3LWE2ZTktMTQ4NTZmZjIxZjgxXkEyXkFqcGc@._V1_.jpg",
-    "https://lh5.googleusercontent.com/proxy/Iu0mIQHNjAXaRC9IJxRWyOTlIqpr_zsU43Z9jjjTTmeEgAD-0XNXePy5Rp67YmtKc9-_TPDohSvqwktmdhOr0WjXUp0-sEZ2UA_t3g4vG1DvVN6QBAQ",
-    "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/def1a127409059.56364ab8e17fa.jpg",
-  ];
-
-  let movieIndex = 0;
-  let seriesIndex = 0;
-
-  function updatePosters() {
-    document.getElementById("movies-poster").style.backgroundImage =
-      `url('${movieImages[movieIndex]}')`;
-    document.getElementById("series-poster").style.backgroundImage =
-      `url('${seriesImages[seriesIndex]}')`;
-    movieIndex = (movieIndex + 1) % movieImages.length;
-    seriesIndex = (seriesIndex + 1) % seriesImages.length;
-  }
-
-  function handleDivClick(divType) {
-    clickedDiv = divType;
-  }
-
-  onMount(() => {
-    const intervalId = setInterval(updatePosters, 1000);
-    return () => clearInterval(intervalId);
-  });
-  let newcomp = 0; // Tracks the current component state
-  let firstoption = ""; // Stores the selected option
+  let isGrid = false;
+  let newcomp = 0;
+  let firstoption = "";
 
   let arr = [
     "Released 5 years ago",
@@ -50,15 +17,15 @@
   ];
 
   function handleNext() {
-    isGrid = true; // Change layout to grid
-    newcomp++; // Move to the next component
-    console.log("New comp value:", newcomp); // Check the value of newcomp
+    isGrid = true;
+    newcomp++;
+    console.log("New comp value:", newcomp);
   }
   function handleClick(bar) {
-    firstoption = bar; // Set the selected option
+    firstoption = bar;
   }
 
-  let secondoption = ""; // Stores the selected option
+  let secondoption = "";
 
   let arr2 = [
     "Top Movies",
@@ -68,15 +35,15 @@
   ];
 
   function handleClick2(bar) {
-    secondoption = bar; // Set the selected option
+    secondoption = bar;
   }
 
-  let thirdoption = ""; // Stores the selected option
+  let thirdoption = "";
 
   let arr3 = ["Sad 😞", "Neutral 😐", "Happy 😊"];
 
   function handleClick3(bar) {
-    thirdoption = bar; // Set the selected option
+    thirdoption = bar;
   }
 
   let clickedBars = [];
@@ -131,8 +98,6 @@
       }
     }
   }
-
-
 </script>
 
 <div
@@ -165,49 +130,46 @@
     </div>
   </div>
 
-  <!-- Content Section -->
   {#if newcomp === 0}
-  <div class="w-full flex z-10 justify-center gap-4 my-10 h-full">
-    <button
-      id="movies-poster"
-      class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
-      style="background-image: url('https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg');"
-      on:click={() => handleDivClick("movies")}
-    >
-      <div
-        class="h-full w-full bg-black rounded-xl text-center flex items-center justify-center font-poiret text-6xl font-bold"
-        style="opacity: {clickedDiv === 'movies' ? 1 : 0.6}"
+    <!-- <div class="w-full flex z-10 justify-center gap-4 my-10 h-full">
+      <button
+        id="movies-poster"
+        class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
+        style="background-image: url('https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg');"
+        on:click={() => handleDivClick("movies")}
       >
-        Movies
-      </div>
-    </button>
+        <div
+          class="h-full w-full bg-black rounded-xl text-center flex items-center justify-center font-poiret text-6xl font-bold"
+          style="opacity: {clickedDiv === 'movies' ? 1 : 0.6}"
+        >
+          Movies
+        </div>
+      </button>
 
-    <button
-      id="series-poster"
-      class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
-      style="background-image: url('https://preview.redd.it/drd9eqknks481.jpg?width=1080&crop=smart&auto=webp&s=00776b18b0215c23db02ed7392ec7f7a52ab3c01');"
-      on:click={() => handleDivClick("series")}
-    >
-      <div
-        class="h-full w-full bg-black rounded-xl text-center flex items-center justify-center font-poiret text-6xl font-bold"
-        style="opacity: {clickedDiv === 'series' ? 1 : 0.6}"
+      <button
+        id="series-poster"
+        class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
+        style="background-image: url('https://preview.redd.it/drd9eqknks481.jpg?width=1080&crop=smart&auto=webp&s=00776b18b0215c23db02ed7392ec7f7a52ab3c01');"
+        on:click={() => handleDivClick("series")}
       >
-        Series
-      </div>
-    </button>
-  </div>
+        <div
+          class="h-full w-full bg-black rounded-xl text-center flex items-center justify-center font-poiret text-6xl font-bold"
+          style="opacity: {clickedDiv === 'series' ? 1 : 0.6}"
+        >
+          Series
+        </div>
+      </button>
+    </div>
 
-  {#if clickedDiv}
-    <a
-      href=""
-      class="bg-custom-dark text-3xl p-4 w-fit mx-auto rounded-xl opacity-80 my-4"
-      on:click={handleNext}
-    >
-      Next
-    </a>
-  {/if}
-
-
+    {#if clickedDiv}
+      <button
+        class="bg-custom-dark text-3xl p-4 w-fit mx-auto rounded-xl opacity-80 my-4"
+        on:click={handleNext}
+      >
+        Next
+      </button>
+    {/if} -->
+    <Posterselection {handleNext}/>
   {/if}
 
   {#if newcomp === 1}
@@ -226,7 +188,7 @@
       <div class="row-span-6 my-7 grid gap-4 overflow-hidden relative">
         {#each arr as label, i}
           <button
-            class="sliding-bar bg-[#0B4F6C] font-poiret text-2xl text-center p-3 rounded-e-xl"
+            class="sliding-bar bg-[#0B4F6C] font-poiret text-2xl text-center p-3 rounded-e-xl ease-in-out hover:scale-125"
             on:click={() => handleClick(label)}
             style="
             width: {firstoption === label ? '100%' : '85%'};
@@ -428,44 +390,46 @@
 <div></div>
     
   {/if}
+
   {#if newcomp === 5}
-  <div
-  class="mx-auto bg-[#0b4f6c59] h-fit text-2xl font-medium p-4 rounded-lg font-poiret"
->
-  Write Your dream story And get preference!
-</div>
+    <div
+      class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium p-4 rounded-lg font-poiret"
+    >
+      Write Your dream story And get preference!
+    </div>
 
-<div class="w-full justify-center flex">
-  <textarea
-    id="dream-story"
-    class="p-4 w-1/2 h-48 text-[#0B4F6C] text-lg font-medium bg-[#ffffff37] rounded-lg shadow-lg resize-none outline-none focus:ring-4 focus:ring-[#0B4F6C] placeholder-[#8F8F8F] placeholder-opacity-75 transition-all duration-300"
-    placeholder="Start writing your dream story here..."
-  ></textarea>
-</div>
+    <div class="w-full justify-center flex">
+      <textarea
+        id="dream-story"
+        class="p-4 w-1/2 h-48 text-[#0B4F6C] text-lg font-medium bg-[#F8FAFC] rounded-lg shadow-lg resize-none outline-none focus:ring-4 focus:ring-[#0B4F6C] placeholder-[#8F8F8F] placeholder-opacity-75 transition-all duration-300"
+        placeholder="Start writing your dream story here..."
+      ></textarea>
+    </div>
 
-<div id="error-message" class="text-red-500 text-center mt-2 hidden">
-  Your story should include at least 20 letters!
-</div>
+    <div id="error-message" class="text-red-500 text-center mt-2 hidden">
+      Your story should include more than twenty letters!
+    </div>
 
-<div class="mx-auto my-auto mt-4 flex gap-4 justify-center">
-  <button
-    id="next-btn"
-    class="bg-gray-700 text-gray-400 p-3 rounded-md cursor-not-allowed"
-    disabled
-  >
-    NEXT
-  </button>
-  <a href="/result" class="bg-white text-black p-3 rounded-md">Skip</a>
-</div>
+    <div class="mx-auto my-auto mt-4 flex gap-4 justify-center">
+      <button
+        on:click={handleNext}
+        id="next-btn"
+        class="bg-gray-700 text-gray-400 p-3 rounded-xl cursor-not-allowed"
+        disabled
+      >
+        NEXT
+      </button>
+      <button class="bg-white text-black p-3 rounded-xl">Skip</button>
+    </div>
 
-<script>
-  const textarea = document.getElementById("dream-story");
-  const nextButton = document.getElementById("next-btn");
-  const errorMessage = document.getElementById("error-message");
+    <script>
+      const textarea = document.getElementById("dream-story");
+      const nextButton = document.getElementById("next-btn");
+      const errorMessage = document.getElementById("error-message");
 
-  textarea.addEventListener("input", () => {
-    // Count the number of letters (ignore spaces and non-alphabet characters)
-    const letterCount = textarea.value.replace(/[^a-zA-Z]/g, "").length;
+      textarea.addEventListener("input", () => {
+        // Count the number of letters (ignore spaces and non-alphabet characters)
+        const letterCount = textarea.value.replace(/[^a-zA-Z]/g, "").length;
 
     if (letterCount >= 20) {
       // Enable the button and hide error message
@@ -492,10 +456,6 @@
   });
 </script>
 
-
+  
   {/if}
 </div>
-
-<style>
-
-</style>
