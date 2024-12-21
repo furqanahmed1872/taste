@@ -4,12 +4,16 @@
   export let handleNext;
 
   let movieImages = [
-    "https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_FMjpg_UX1000_.jpg",
-    "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmU2ZS00ZjQ4LWE5MTQtZDRjN2Q0ZWM1YzJjXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
+   "https://i.pinimg.com/736x/25/2e/b7/252eb7e60c6e3873bd808ed472bfa930.jpg",
+   "https://i.pinimg.com/736x/12/5b/8d/125b8d97e03823163e879432d07ad395.jpg",
+"https://i.pinimg.com/736x/85/0a/09/850a091bdd4691362e35b028acfec0d9.jpg",
+"https://i.pinimg.com/736x/54/b1/06/54b10688425a69faaf840b4bc7ae66a7.jpg",
   ];
   let seriesImages = [
-    "https://preview.redd.it/drd9eqknks481.jpg?width=1080&crop=smart&auto=webp&s=00776b18b0215c23db02ed7392ec7f7a52ab3c01",
-    "https://m.media-amazon.com/images/M/MV5BMzA5NjI2ZjgtZjg2YS00NjlkLTk3OGUtY2FmZGRiOTI4NjEwXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
+    "https://i.pinimg.com/736x/fe/f4/18/fef4188d791a37910793c4f6b43f7f73.jpg",
+  "https://i.pinimg.com/736x/bd/55/0f/bd550fa86797380e204f79587ce1d791.jpg",
+  "https://i.pinimg.com/736x/4e/07/19/4e071923f62da4c48f09f2f482c87d8c.jpg",
+  "https://i.pinimg.com/736x/af/bb/53/afbb53586baebacfc403ca12b8f0d88b.jpg"
   ];
 
   let movieIndex = 0;
@@ -48,7 +52,11 @@
     class="h-full md:w-1/5 w-full rounded-xl bg-cover bg-center cursor-pointer transform transition-transform duration-500 ease-in-out"
     style="background-image: url('{movieImages[movieIndex]}');"
     on:click={() => 
-      handleDivClick("movies")
+   handleDivClick("movies")
+    
+
+    
+
      }
   >
     <div
@@ -66,6 +74,8 @@
     style="background-image: url('{seriesImages[seriesIndex]}');"
     on:click={() => 
       handleDivClick("series")
+    
+  
      }
   >
     <div
