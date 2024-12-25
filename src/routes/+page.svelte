@@ -6,7 +6,13 @@
   function toggleDropdown() {
     showOptions = !showOptions;
   }
+
+
+
 </script>
+
+
+
 
 <div class="relative w-full min-h-screen">
   <!-- Background Image (fixed position) -->
@@ -16,7 +22,9 @@
   ></div>
 
   <!-- Color Overlay -->
-  <div class="fixed inset-0 bg-[#001016] opacity-90"></div>
+  <div class="fixed inset-0 bg-[#001016] opacity-90">
+    
+  </div>
 
   <!-- Main Content -->
   <div
@@ -28,7 +36,90 @@
       <img src="../logo.png" alt="Logo" class="w-28" />
 
     </div>
-
+    <script>
+      let activeIndex = -1;
+      let direction = 'right'; // Direction of the hover (left to right or right to left)
+    
+      // Function to track the direction of mouse movement
+      function handleMouseMove(event) {
+        const currentX = event.clientX;
+        if (currentX > this.lastX) {
+          direction = 'right';
+        } else {
+          direction = 'left';
+        }
+        this.lastX = currentX; // Store current mouse position for comparison
+      }
+    
+      // Add mouse move event listener to track movement direction
+      import { onMount } from 'svelte';
+      onMount(() => {
+        document.addEventListener('mousemove', handleMouseMove);
+        return () => document.removeEventListener('mousemove', handleMouseMove);
+      });
+    </script>
+    
+    <style>
+      .nav-link {
+        position: relative;
+        display: inline-block;
+      }
+    
+      .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #3498db; /* Blue underline */
+        transition: width 0.3s ease, transform 0.3s ease;
+      }
+    
+      .nav-link.active::before {
+        width: 100%;
+      }
+    </style>
+    
+    <nav class="bg-gray-800 p-4">
+      <ul class="flex space-x-8 justify-center">
+        <li
+          class="nav-link"
+          on:mouseenter={() => activeIndex = 0}
+          on:mouseleave={() => activeIndex = -1}
+          class:active={activeIndex === 0}
+        >
+          <a href="#" class="text-white text-lg">Home</a>
+        </li>
+        <li
+          class="nav-link"
+          on:mouseenter={() => activeIndex = 1}
+          on:mouseleave={() => activeIndex = -1}
+          class:active={activeIndex === 1}
+        >
+          <a href="#" class="text-white text-lg">About</a>
+        </li>
+        <li
+          class="nav-link"
+          on:mouseenter={() => activeIndex = 2}
+          on:mouseleave={() => activeIndex = -1}
+          class:active={activeIndex === 2}
+        >
+          <a href="#" class="text-white text-lg">Services</a>
+        </li>
+        <li
+          class="nav-link"
+          on:mouseenter={() => activeIndex = 3}
+          on:mouseleave={() => activeIndex = -1}
+          class:active={activeIndex === 3}
+        >
+          <a href="#" class="text-white text-lg">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    
+    
+    
     <!-- Main Text -->
     <div
       class="text-5xl text-white font-poiret bg-[#2A0B0B] opacity-70 w-full text-center p-6 justify-around"
