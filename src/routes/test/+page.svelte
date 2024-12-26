@@ -1,257 +1,50 @@
 <script>
-  import { onMount } from 'svelte';
-
-  onMount(() => {
-    // Textbox Events
-    document.addEventListener('focusin', (event) => {
-      if (event.target.matches('navbar input.search-textbox')) {
-        if (event.target.value.length <= 0) {
-          const parent = event.target.closest('div.search');
-          parent.classList.add('focused');
-        }
-      }
-    });
-
-    document.addEventListener('focusout', (event) => {
-      if (event.target.matches('navbar input.search-textbox')) {
-        if (event.target.value.length <= 0) {
-          const parent = event.target.closest('div.search');
-          parent.classList.remove('focused');
-        }
-      }
-    });
-
-    document.addEventListener('click', (event) => {
-      if (event.target.closest('navbar .search')) {
-        const input = event.target.closest('navbar .search').querySelector('input.search-textbox');
-        input.focus();
-      }
-    });
-
-    // Text Key Events for Animating Icons
-    document.addEventListener('keyup', (event) => {
-      if (event.target.matches('navbar input.search-textbox')) {
-        const parent = event.target.closest('div.search');
-        const phrase = event.target.value;
-        const phraseLength = phrase.length;
-
-        if (phraseLength >= 2) {
-          parent.classList.add('multi-char');
-          if (!parent.classList.contains('not-null')) {
-            parent.classList.add('not-null');
-          }
-        } else if (phraseLength === 1) {
-          parent.classList.add('not-null');
-          parent.classList.remove('multi-char');
-        } else if (phraseLength <= 0) {
-          parent.classList.remove('not-null');
-          parent.classList.remove('multi-char');
-        }
-      }
-    });
-
-    // Tab Highlighter Functionality
-    const TabHighlighter = {
-      set: function (element) {
-        const rect = element.closest('li').getBoundingClientRect();
-        const highlighter = document.querySelector('.tab-highlighter');
-        highlighter.style.left = rect.left + 'px';
-        highlighter.style.width = rect.width + 'px';
-      },
-      refresh: function () {
-        const activeTab = document.querySelector('.tabs ul.navbar-body li.active a');
-        if (activeTab) {
-          TabHighlighter.set(activeTab);
-        }
-      }
-    };
-
-    document.addEventListener('click', (event) => {
-      if (event.target.matches('navbar .tabs ul.navbar-body li a')) {
-        const activeTab = event.target.closest('li');
-        TabHighlighter.set(event.target);
-        activeTab.parentElement.querySelector('.active')?.classList.remove('active');
-        activeTab.classList.add('active');
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      TabHighlighter.refresh();
-    });
-
-    TabHighlighter.refresh();
-  });
+  let movies = [
+    { title: 'Deadpool & Wolverine', releaseDate: '2024-07-26', poster: 'https://i.pinimg.com/736x/b3/ee/52/b3ee52ed41150dac43e8252192b0fb88.jpg' },
+    { title: 'Kraven the Hunter', releaseDate: '2024-08-30', poster: 'https://i.pinimg.com/736x/c3/4c/5f/c34c5feeb717b242b63e542ac4f7d9f0.jpg' },
+    { title: 'Captain America: Brave New World', releaseDate: '2024-11-08', poster: 'https://i.pinimg.com/736x/a3/24/5b/a3245b50ba1c680b4119a4e2391c7e97.jpg' },
+    { title: 'Daredevil Bornagain', releaseDate: '2025-12-19', poster: 'https://i.pinimg.com/736x/be/66/83/be66834187962edb75c9bd1c8dd536ca.jpg' },
+    { title: 'Deadpool & Wolverine', releaseDate: '2024-07-26', poster: 'https://i.pinimg.com/736x/b3/ee/52/b3ee52ed41150dac43e8252192b0fb88.jpg' },
+    { title: 'Kraven the Hunter', releaseDate: '2024-08-30', poster: 'https://i.pinimg.com/736x/c3/4c/5f/c34c5feeb717b242b63e542ac4f7d9f0.jpg' }
+  ];
 </script>
 
+<div class="fixed inset-0 bg-cover bg-center" style="background-image: url('../back.jpg');"></div>
 
-<style>
-  /*Styling links*/
-navbar a{
-    font-size: 16px;
-    font-weight: 300;
-    font-family: "po", sans-serif;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    padding: 2px;
-    -webkit-border-radius:2px;
-    -moz-border-radius:2px;
-    border-radius:2px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor:pointer;
-    margin: 18px;
-}
-navbar a:hover, navbar a:active, navbar a{
-    text-decoration: none;
-    color: rgba(0,0,0,0.6);
-}
-navbar a:hover{
-    background: rgba(0,0,0,0.06);
-}
-navbar a:active{
-    color: rgba(0,0,0,0.9);
-    background: rgba(0,0,0,0.1);
-}
-navbar a{
-    color: #5bc0de;
-    font-family: "poiret", sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    float: right;
-}
+<!-- Color Overlay -->
+<div class="fixed inset-0 bg-gradient-to-r from-[#000000] via-[#140000] to-[#000000] opacity-95 transition-opacity"></div>
 
-/*Shadow*/
-navbar .paper-shadow-bottom-z-2 {
-    box-shadow: 0 8px 17px 0 rgba(0,0,0,.2);
-}
-
-/*Setting Up Navbar Layouts*/
-navbar .navbar-inverse{
-    color: #000;
-    background: black;
-    border:none;
-    min-height: 50px;
-    max-height: 50px;
-    height: 50px;
-}
-navbar .container-fluid{
-    position: absolute;
-    top:0; bottom: 0;
-    right:0;
-    left:0;
-}
-navbar .navbar-body{
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    align-items: center;
-    -webkit-align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    position: relative;
-}
-navbar div.navbar-end{
-    align-items: flex-start;
-    -webkit-align-items: flex-start;
-}
-navbar div.navbar-start,
-navbar div.navbar-end{
-    flex: 1;
-    -webkit-flex: 1;
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    align-items: center;
-    -webkit-align-items: center;
-    justify-content: space-around;
-}
-navbar div.navbar-start .logo{
-    opacity: 0.6;
-    width:30px;
-}
-
-/*Integrating Two Navbars Together*/
-navbar .nav{
-    z-index: 2;
-}
-navbar .tabs{
-    z-index: 1;
-    position: relative;
-}
-
-
-
-
-
-/*Styling Tabs*/
-navbar .tabs .navbar-body li.active a{
-    color: #333;
-}
-navbar .tabs .navbar-body li{
-    -webkit-transition: all 0.2s cubic-bezier(0.21, 0.61, 0.36, 1);
-    -moz-transition: all 0.2s cubic-bezier(0.21, 0.61, 0.36, 1);
-    -ms-transition: all 0.2s cubic-bezier(0.21, 0.61, 0.36, 1);
-    -o-transition: all 0.2s cubic-bezier(0.21, 0.61, 0.36, 1);
-    transition: all 0.2s cubic-bezier(0.21, 0.61, 0.36, 1);
-}
-navbar .tabs .navbar-body li:hover{
-    background: rgba(0,0,0,0.02);
-}
-navbar .tabs .navbar-body li:active{
-    background: rgba(0,0,0,0.05);
-}
-navbar .tabs .navbar-body li a:hover, .tabs .navbar-body li a:active{
-    background: rgba(0,0,0,0);
-    color: #5bc0de;
-}
-
-/*Styling Tab Highlighter*/
-navbar .tab-highlighter{
-    height:2px;
-    width: 50px;
-    margin-top: -2px;
-    background: #000;
-    position: absolute;
-    -webkit-transition: all 0.6s cubic-bezier(0.21, 0.61, 0.36, 1);
-    -moz-transition: all 0.6s cubic-bezier(0.21, 0.61, 0.36, 1);
-    -ms-transition: all 0.6s cubic-bezier(0.21, 0.61, 0.36, 1);
-    -o-transition: all 0.6s cubic-bezier(0.21, 0.61, 0.36, 1);
-    transition: all 0.6s cubic-bezier(0.21, 0.61, 0.36, 1);
-}
-
-/*Keyframes*/
-@keyframes SwiftSlide {
-    100%{
-        margin-right: 0;
-        opacity: 1;
-    }
-}
-@keyframes SwiftSlideToRight {
-    100%{
-        opacity:0;
-        margin-right: -30px;
-    }
-}
-</style>
-
-<navbar>
- 
-   
-  <div class="navbar  navbar-inverse tabs paper-shadow-bottom-z-2">
-    <div class="container-fluid">
-      <ul class="navbar-body list-inline">
-        <li class="active"><a class="active">Home</a></li>
-        <li><a>Potion Lab</a></li>
-        <li><a>Stats</a></li>
-        <li><a>System Log Feed</a></li>
-      </ul>
-      <div class="tab-highlighter"></div>
+<!-- Main Content -->
+<div class="relative z-10 text-white h-screen flex flex-col">
+  <!-- Header Section -->
+  <div class="relative text-4xl z-10 bg-gradient-to-r from-[#fff0] h-fit via-[#fff] font-semibold flex justify-center font-poiret text-black opacity-70 w-full text-center p-4">
+    <a href="/">
+      <img src="../logo.png" alt="Logo" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-20 z-10 opacity-90" />
+    </a>
+    <div class="relative z-10 flex items-center justify-center">
+      <b style="color: #fff0; user-select: none;">---------</b> 
     </div>
   </div>
 
-</navbar>
+  <main class="p-8 relative">
+    <h1 class="text-5xl  mb-10 text-center uppercase ">Upcoming Movies</h1>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6">
+      {#each movies as movie}
+        <div class="group relative bg-black hover: rounded-xl shadow-2xl overflow-hidden hover:scale-105 transition-transform duration-300 hover:ring-4 hover:ring-lightblue">
+          <div class="overflow-hidden rounded-t-xl">
+            <!-- Movie Poster -->
+            <img src={movie.poster} alt={movie.title} class="w-full aspect-[2/3] object-cover group-hover:opacity-100 transition-opacity duration-300">
+          </div>
+          <!-- Title hidden on hover -->
+          <div class="p-4 text-center">
+            <h2 class="text-white font-poiret font-bold text-lg tracking-wide  transition-colors">{movie.title}</h2>
+          </div>
+          <!-- Show button on hover -->
+          <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <button class="px-4 py-2 bg-red-900 text-black text-sm font-bold rounded-md shadow-md transition-colors">View Details</button>
+          </div>
+        </div>
+      {/each}
+    </div>
+  </main>
+</div>
