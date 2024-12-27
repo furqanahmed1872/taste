@@ -1,21 +1,30 @@
 <script>
-  import { writable } from "svelte/store";
-  import { filters } from "$lib/store"; // Import the store
+  import { filters } from "$lib/store";
+  import { goto } from "$app/navigation";
+  import { get } from "svelte/store";
 
-  let story = ''; // Bind this to the textarea
+  let story = "";
+  let filtersValue = get(filters);
 
   // Function to update storyline and log the store
   const saveStoryline = () => {
-    filters.update(f => {
+    filters.update((f) => {
       const updatedFilters = { ...f, storyline: story };
       console.log("Updated Filters:", updatedFilters); // Log to console
       return updatedFilters;
     });
+    navigateToResults(filtersValue);
   };
+  function navigateToResults(filtersValue) {
+    const queryParams = new URLSearchParams(filtersValue).toString();
+    goto(`/result?${queryParams}`);
+  }
 </script>
 
 <!-- Title -->
-<div class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium p-4 rounded-lg font-poiret">
+<div
+  class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium p-4 rounded-lg font-poiret"
+>
   Write Your dream story And get preference!
 </div>
 
@@ -40,17 +49,16 @@
 <div class="mx-auto my-auto mt-4 flex gap-4 justify-center">
   {#if story.length > 20}
     <!-- NEXT Button -->
-    <a
-      href="/result"
+    <button
+      onclick={saveStoryline()}
       class="p-3 rounded-xl bg-blue-600 text-white cursor-pointer"
-      on:click={saveStoryline} 
     >
-      NEXT
-    </a>
+      Submit
+    </button>
   {/if}
   <!-- Skip Button -->
-  <a
-    href="/result"
-    class="bg-white text-black p-3 rounded-xl"
-  >Skip</a>
+  <button
+    onclick={navigateToResults(filtersValue)}
+    class="bg-white text-black p-3 rounded-xl">Skip</button
+  >
 </div>
