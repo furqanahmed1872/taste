@@ -1,5 +1,5 @@
 <script>
-             import { onMount, onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { filters } from "$lib/store";
   export let handleNext;
 
@@ -66,8 +66,9 @@
 </script>
 
 <!-- Main Layout -->
-<div class="grid grid-cols-3 grid-rows-10 2xl 2xl:w-1/2 xl:w-2/3 m-8 lg:w-3/4 mx-auto">
-
+<div
+  class="grid grid-cols-3 grid-rows-10 2xl 2xl:w-1/2 xl:w-2/3 m-8 lg:w-3/4 mx-auto"
+>
   <!-- Genre Options - First Group -->
   <div class="row-span-10 my-4 grid gap-2 overflow-hidden relative">
     {#each arr4 as label}
@@ -123,6 +124,6 @@
         {label}
       </button>
     {/each}
-    </div>
+  </div>
 </div>
-<div ></div>
+<div></div>
