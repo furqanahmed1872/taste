@@ -242,12 +242,12 @@
   {/if}
 
   <div
-    class="fixed inset-0 bg-cover bg-black/50 bg-center blur-sm"
+    class="fixed inset-0 bg-cover bg-black/50 bg-center "
     style="background-image: url('../back.jpg');"
   ></div>
 
   <div
-    class="fixed inset-0 bg-gradient-to-r from-[#2a0b0b] from-0% via-black via-50% to-[#01112c] to-100% opacity-85"
+    class="fixed inset-0 bg-gradient-to-r from-[#051721] via-black to-[#210505] opacity-95 transition-opacity"
   ></div>
 
   <div class="relative z-10 flex flex-col items-center text-white h-screen">
