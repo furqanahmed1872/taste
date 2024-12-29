@@ -22,11 +22,18 @@
 </script>
 
 <!-- Title -->
-<div
-  class="mx-auto bg-[#0B4F6C] h-fit text-2xl font-medium p-4 rounded-lg font-poiret"
->
-  Write Your dream story And get preference!
-</div>
+
+<a href="#_" class="relative px-8 py-4 font-medium text-white group w-fit h-fit mx-auto">
+  <span class="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform translate-x-0 -skew-x-12 bg-[#3180a2] group-hover:bg-[#0B4F6C] group-hover:skew-x-12"></span>
+  <span class="absolute inset-0 w-full h-full transition-all duration-300 ease-out transform skew-x-12 bg-[#0B4F6C] group-hover:bg-[#3180a2] group-hover:-skew-x-12"></span>
+
+  <span class="absolute bottom-0 left-0 hidden w-10 h-20 transition-all duration-100 ease-out transform -translate-x-8 translate-y-10 bg-[#206684] -rotate-12"></span>
+  <span class="absolute bottom-0 right-0 hidden w-10 h-20 transition-all duration-100 ease-out transform translate-x-10 translate-y-8 bg-[#4394b7] -rotate-12"></span>
+  <span class="relative text-2xl font-poiret ">Write Your dream story And get preference!</span>
+</a>
+
+
+<!-- Write Your dream story And get preference! -->
 
 <!-- Textarea -->
 <div class="w-full justify-center flex">
