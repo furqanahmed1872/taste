@@ -24,18 +24,18 @@
   >
     <!-- Logo -->
     <div class="flex justify-center w-full">
-      <img src="../logo.png" alt="Logo" class="w-28" />
+      <img src="../logo.png" alt="Logo" class="w-36" />
     </div>
     
     <div class="w-full flex flex-col gap-1">
       <!-- nav-bar -->
       <div
-        class="flex w-full flex-col items-center justify-center font-poiret text-white text-lg bg-black/70 to-black/10 from-black/10"
+        class="flex w-full flex-col items-center justify-center font-poiret text-white text-lg bg-black/50 to-black/10 from-black/10"
       >
         <div class="grid w-1/4 grid-cols-3 justify-items-center relative">
           <a
             class="relative p-2 text-white group hover:text-gray-300 hover:bg-white/10"
-            href="/"
+            href="/upcoming"
           >
             Upcoming
             <span
@@ -44,7 +44,7 @@
           </a>
           <a
             class="relative p-2 text-white group hover:text-gray-300 hover:bg-white/10"
-            href="/"
+            href="/faqs"
           >
             FAQs
             <span
@@ -53,7 +53,7 @@
           </a>
           <a
             class="relative p-2 text-white group hover:text-gray-300 hover:bg-white/10"
-            href="/"
+            href="/about"
           >
             About
             <span

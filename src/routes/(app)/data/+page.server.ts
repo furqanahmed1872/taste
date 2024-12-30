@@ -7,7 +7,7 @@ export const load: PageServerLoad = async () => {
     .from("movies")
     .select("*")
     .gte("year", 2010)
-    .gte("rating", 9)
+    .gt("rating", 7)
     .or("genre.ilike.%horror%,genre.ilike.%mystery%");
   
   
