@@ -1,6 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { onDestroy, onMount } from "svelte";
+  import { get } from "svelte/store";
   export let data;
   let { base64Audio1, base64Audio2, num } = data;
 
@@ -13,6 +14,7 @@
   let audio: HTMLAudioElement | null = null;
   let backgroundMusic: HTMLAudioElement | null = null;
   let showOverlay = true;
+  let filtersValue = get(data.details);
 
   async function startRecording() {
     try {
@@ -113,11 +115,10 @@
           };
         } else if (data.details) {
           console.log("No audio found, navigating to result.");
-          // setTimeout(() => {
-          //   goto(
-          //     `/result?details=${encodeURIComponent(JSON.stringify(data.details))}`
-          //   );
-          // }, 5000);
+          const queryParams = new URLSearchParams(filtersValue).toString();
+          setTimeout(() => {
+            goto(`/result?${queryParams}`);
+          }, 5000);
         }
       } else {
         console.error("Error:", data.error);
@@ -242,7 +243,7 @@
   {/if}
 
   <div
-    class="fixed inset-0 bg-cover bg-black/50 bg-center "
+    class="fixed inset-0 bg-cover bg-black/50 bg-center"
     style="background-image: url('../back.jpg');"
   ></div>
 
@@ -286,7 +287,5 @@
         <img src={imageSrc} alt="" width="50" height="50" />
       </button>
     </div>
-
-    
   </div>
 </div>

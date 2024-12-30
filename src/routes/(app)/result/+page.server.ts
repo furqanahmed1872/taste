@@ -6,7 +6,7 @@ import { get } from "svelte/store";
 export async function load({ url }) {
   const filtersValue = {
     type: url.searchParams.get("type"),
-    genre: url.searchParams.getAll("genre"),
+    genre: url.searchParams.getAll("genre")[0]?.split(",") || [],
     year: url.searchParams.get("year"),
     rating: url.searchParams.get("rating"),
   };
@@ -23,12 +23,9 @@ export async function load({ url }) {
       .select("*")
       .gte("year", 2025 - filtersValue.year)
       .gte("rating", filtersValue.rating)
-      .or(
-        filtersValue.genre
-          .map((genre) => `genre.ilike.%${genre}%`)
-          .join("%,genre.ilike.%")
-      )
+      .or(filtersValue.genre.map((genre) => `genre.ilike.%${genre}%`).join(","))
       .limit(5);
+
     if (fetchError) {
       console.error("Error fetching data:", fetchError);
       throw error(500, "Failed to fetch movies.");
