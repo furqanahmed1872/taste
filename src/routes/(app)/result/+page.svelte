@@ -1,4 +1,6 @@
 <script>
+  import { fly } from "svelte/transition";
+
   export let data;
   let { movies: list } = data;
   console.log(list);
@@ -42,86 +44,154 @@
   ];
 
   let currentIndex = 0;
+  let direction = "";
+  let transitioning = false;
+  let animateTitle = false;
 
-  function showNextMovie() {
-    currentIndex = (currentIndex + 1) % movies.length;
-    // Trigger the animation by adding a class to the background
-    document.getElementById("background").classList.add("slide-in");
-    // Remove the animation class after it completes, to allow it to trigger again
+
+
+  function NextMovie() {
+    if (!transitioning) {
+      transitioning = true;
+      direction = "left";
+      currentIndex = (currentIndex + 1) % movies.length;
+ triggerAnimation();
+    }
+  }
+
+  function PreviousMovie() {
+    if (!transitioning) {
+      transitioning = true;
+      direction = "right";
+      currentIndex = (currentIndex - 1 + movies.length) % movies.length;
+ triggerAnimation();
+    }
+  }
+
+  function triggerAnimation() {
+    animateTitle = false; // Reset animation
     setTimeout(() => {
-      document.getElementById("background").classList.remove("slide-in");
-    }, 2000); // Match the duration of the animation
+      animateTitle = true; // Restart animation
+    }, 10); // Small delay to ensure CSS re-renders
+  }
+
+  $: {
+    // Once direction changes, reset it after the transition
+    if (transitioning) {
+      setTimeout(() => {
+        direction = "";
+        transitioning = false;
+      }, 300); // Adjust duration to match transition speed
+    }
   }
 </script>
 
+{#if direction === "right"}
+  <div
+    class="bg-poster transition-all"
+    style="background-image: url({movies[currentIndex].backgroundposter});"
+    transition:fly|local={{ x: 1000 }}
+  ></div>
+{:else if direction === "left"}
+  <div
+    class="bg-poster transition-all"
+    style="background-image: url({movies[currentIndex].backgroundposter});"
+    transition:fly|local={{ x: -1000 }}
+  ></div>
+{:else}
+  <div
+    class="bg-poster"
+    style="background-image: url({movies[currentIndex].backgroundposter});"
+  ></div>
+{/if}
+
 <div
-  id="background"
-  class="fixed inset-0 bg-cover bg-center transition-all"
-  style="background-image: url({movies[currentIndex].backgroundposter});"
+  class="fixed inset-0 bg-gradient-to-r from-[#000000] via-[#001e30]/85 to-[#000000] "
 ></div>
 
-<!-- Color Overlay -->
-<div class="fixed inset-0 bg-[#0c0303] opacity-90 transition-opacity"></div>
-
-<!-- Main Content -->
 <div class="relative z-10 grid text-white h-screen">
-  <!-- Main Text -->
   <div
     class="relative text-4xl z-10 bg-gradient-to-r from-[#fff0] h-fit via-sky-50 font-semibold flex justify-center font-poiret text-black opacity-70 w-full text-center p-4"
   >
-    <!-- Centered Logo -->
     <img
       src="../logo.png"
       alt="Logo"
-      class="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 h-20 z-10 opacity-90"
+      class="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 h-20 z-10 opacity-90"
     />
-    <!-- Text -->
     <div class="relative z-10 flex items-center justify-center h-fit">
-      "Uncover your taste"
+      <div class="content__container">
+        <p class="content__container__text">
+          Uncover
+        </p>
+        
+        <ul class="content__container__list">
+          <li class="content__container__list__item">Your Taste</li>
+          <li class="content__container__list__item">Movies</li>
+          <li class="content__container__list__item">Series</li>
+          <li class="content__container__list__item"> <b class="text-red-950"> JOY AND FUN</b> </li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <div
-    class="bg-[#080D15] opacity-70 h-fit grid xl:grid-cols-7 grid-cols-5 grid-rows-3 p-4 justify-center items-center my-auto"
+    class="grid grid-cols-7 grid-rows-3 h-fit my-auto justify-center items-center"
   >
-    <div class="row-span-3 xl:block hidden"></div>
-    <img
-      src={movies[currentIndex].poster}
-      alt=""
-      class="h-60 w-auto rounded-lg row-span-3 mx-auto"
-    />
+     <button on:click={PreviousMovie} class="row-span-3 w-14 mx-auto justify-center items-center bg-cyan-700 hover:bg-cyan-800  ease-in-out transition-opacity p-3 rounded-full ">
+      <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 4l-8 8 8 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      
+      
+    </button>
 
-    <div class="font-poiret text-3xl font-bold col-span-4">
-      {movies[currentIndex].title}
-    </div>
-    <div class="row-span-3 xl:block hidden"></div>
-    <div class="font-poiret text-xl font-medium col-span-4">
-      {movies[currentIndex].summary}
-    </div>
-    <div class="flex col-span-4">
-      <button
-        class="z-10 w-fit bg-black opacity-70 m-2 h-fit rounded-xl font-poiret text-2xl text-white text-right flex justify-center items-center p-2"
+    <div
+      class="bg-black opacity-80 col-span-5 row-span-3 grid grid-rows-3 grid-cols-5 p-4 justify-center items-center my-auto rounded-lg"
+    >
+      <img
+        src={movies[currentIndex].poster}
+        alt=""
+        class="h-60 w-auto rounded-lg mx-auto row-span-3"
+      />
+      <div 
+      class="font-poiret text-4xl font-bold col-span-4 ok"
+      class:animated-text={animateTitle}
       >
-        <img src="../imdb.png" alt="" class="h-8 w-fit mx-2" />
-        <div class="mx-2">{movies[currentIndex].rating}</div>
-      </button>
-      {#each movies[currentIndex].genre as g}
-        <button
-          class="z-10 w-fit bg-white opacity-50 m-2 h-fit p-2 rounded-xl font-poiret text-2xl text-black"
-          >{g}</button
-        >
-      {/each}
-      <button
-        class="z-10 w-fit bg-cyan-900 m-2 h-fit rounded-xl p-2 font-poiret text-2xl text-white"
-        >{movies[currentIndex].year}</button
-      >
-      <button
-        class="z-10 w-fit bg-white mx-5 my-2 h-fit rounded-xl p-2 font-bold font-poiret text-3xl text-black ml-auto"
-        on:click={showNextMovie}
-      >
-        MORE
-      </button>
+        {movies[currentIndex].title}
+      </div>
+      <div class="font-poiret text-xl font-medium col-span-4 ">
+        {movies[currentIndex].summary}
+      </div>
+      <div class="flex col-span-4">
+       
+
+        <button  class="px-2 py-2 w-fit flex gap-4 mx-2 h-fit my-auto relative rounded group overflow-hidden font-medium bg-purple-50 text-black ">
+          <span class="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all  rounded duration-200 ease-out transform translate-y-0 bg-black group-hover:h-full opacity-95 "></span>
+          <img src="../imdb.png" alt="" class="h-8 w-fit " />
+          <span class="relative group-hover:text-white font-poiret text-2xl">{movies[currentIndex].rating}</span>
+        </button>
+        
+        {#each movies[currentIndex].genre as g}
+        <button  class="relative w-fit h-fit my-auto mx-2 inline-flex items-center justify-start px-5 py-3 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group">
+          <span class="w-48 h-48 rounded rotate-[-40deg] bg-rose-900 absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+          <span class="relative w-full text-left text-black transition-colors duration-300 ease-in-out group-hover:text-white">{g}</span>
+        </button>
+        {/each}
+
+        <button  class="relative inline-flex w-fit h-fit items-center justify-center px-10 py-3 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group">
+          <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+          <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+          <span class="relative">{movies[currentIndex].year}</span>
+        </button>
+      </div>
     </div>
+
+    <button on:click={NextMovie} class="row-span-3 w-14 mx-auto justify-center items-center bg-cyan-700 hover:bg-cyan-800  ease-in-out transition-opacity p-3 rounded-full ">
+      <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 4l8 8-8 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      
+    </button>
   </div>
 
   <div
@@ -140,12 +210,10 @@
 </div>
 
 <style>
-  @keyframes slideInFromLeft {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(0);
-    }
+  .bg-poster {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
   }
 </style>
