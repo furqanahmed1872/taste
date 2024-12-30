@@ -26,7 +26,7 @@
     <div class="flex justify-center w-full">
       <img src="../logo.png" alt="Logo" class="w-36" />
     </div>
-    
+
     <div class="w-full flex flex-col gap-1">
       <!-- nav-bar -->
       <div
