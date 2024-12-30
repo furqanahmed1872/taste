@@ -35,7 +35,7 @@
         <div class="grid w-1/4 grid-cols-3 justify-items-center relative">
           <a
             class="relative p-2 text-white group hover:text-gray-300 hover:bg-white/10"
-            href="/"
+            href="/upcoming"
           >
             Upcoming
             <span
@@ -44,7 +44,7 @@
           </a>
           <a
             class="relative p-2 text-white group hover:text-gray-300 hover:bg-white/10"
-            href="/"
+            href="/faqs"
           >
             FAQs
             <span
