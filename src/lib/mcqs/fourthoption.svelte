@@ -97,12 +97,16 @@
     <!-- NEXT Button -->
     <div class="mx-auto m-4">
       {#if clickedBars.length > 0}
-        <button
-          on:click={handleNext}
-          class="bg-custom-dark inset-0 opacity-100 w-fit h-fit font-poiret text-2xl p-4 rounded-lg hover:opacity-100"
-        >
-          NEXT
-        </button>
+      <button 
+      on:click={handleNext}
+      class="relative inset-0 inline-flex items-center justify-center p-6 px-6 py-3 overflow-hidden font-medium text-black transition duration-300 ease-out border-2 border-black rounded-full shadow-md group">
+        <span class="absolute inset-0 flex items-center justify-center w-full h-full text-black duration-300 -translate-x-full bg-[#0B4F6C] group-hover:translate-x-0 ease">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </span>
+        <span class="absolute flex items-center justify-center w-full h-full text-black transition-all duration-300 transform group-hover:translate-x-full ease">Next</span>
+        <span class="relative invisible">Next</span>
+      </button>
+      
       {/if}
     </div>
   </div>

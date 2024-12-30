@@ -1,18 +1,15 @@
 <script>
-  import { fly } from "svelte/transition";
-
-  export let data;
-  let { movies: list } = data;
-  console.log(list);
+  let currentIndex = 0;
+  let animateTitle = false; // Controls animation toggle
+  
+  // Movies data
   let movies = [
     {
       title: "Kung Fu Hustle",
       poster:
         "https://images.moviesanywhere.com/6add024917fe526456f0f3e7730c6133/d3ec9846-3601-4b74-ac2e-f37c9eb2c8c4.jpg",
-      backgroundposter:
-        "https://static1.srcdn.com/wordpress/wp-content/uploads/2016/09/stephen-chow-kung-fu-hustler.jpg",
       summary:
-        "When the hapless Sing and his dim-witted pal Bone try to scam the residents of Pig Sty Alley into thinking they're members of the dreaded Axe Gang, the real gangsters descend on this Shanghai slum to restore their fearsome reputation...",
+        "When the hapless Sing and his dim-witted pal Bone try to scam the residents of Pig Sty Alley into thinking they're members of the dreaded Axe Gang...",
       genre: ["Action", "Comedy"],
       year: 2004,
       rating: 9.8,
@@ -21,10 +18,8 @@
       title: "Inception",
       poster:
         "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_FMjpg_UX1000_.jpg",
-      backgroundposter:
-        "https://images.squarespace-cdn.com/content/v1/60ca4165cdc96644e18adc3c/1629984421972-33L53AA78JBBKIZSY07Y/A5E2E355-B8F6-4909-B6DB-F2187345842E.jpeg",
       summary:
-        "Dom Cobb (Leonardo DiCaprio) is a thief with the rare ability to enter people's dreams and steal their secrets from their subconscious...",
+        "Dom Cobb (Leonardo DiCaprio) is a thief with the rare ability to enter people's dreams...",
       genre: ["Sci-Fi", "Thriller"],
       year: 2010,
       rating: 8.8,
@@ -33,56 +28,31 @@
       title: "The Dark Knight",
       poster:
         "https://m.media-amazon.com/images/S/pv-target-images/8753733ac616155963cc440c3cf5367f45d7685b672c5b9c35bc7f182aec17c4.jpg",
-      backgroundposter:
-        "https://images4.alphacoders.com/288/thumb-1920-288218.jpg",
       summary:
-        "With the help of allies Lt. Jim Gordon (Gary Oldman) and DA Harvey Dent (Aaron Eckhart), Batman (Christian Bale) has been able to keep a tight lid on crime in Gotham City...",
+        "With the help of allies Lt. Jim Gordon and DA Harvey Dent, Batman has been able to keep a tight lid on crime in Gotham City...",
       genre: ["Action", "Drama"],
       year: 2008,
       rating: 9.0,
     },
   ];
 
-  let currentIndex = 0;
-  let direction = "";
-  let transitioning = false;
-  let animateTitle = false;
-
-
-
+  // Function to change movie index and trigger animation
   function NextMovie() {
-    if (!transitioning) {
-      transitioning = true;
-      direction = "left";
-      currentIndex = (currentIndex + 1) % movies.length;
- triggerAnimation();
-    }
+    currentIndex = (currentIndex + 1) % movies.length;
+    triggerAnimation();
   }
 
   function PreviousMovie() {
-    if (!transitioning) {
-      transitioning = true;
-      direction = "right";
-      currentIndex = (currentIndex - 1 + movies.length) % movies.length;
- triggerAnimation();
-    }
+    currentIndex = (currentIndex - 1 + movies.length) % movies.length;
+    triggerAnimation();
   }
 
+  // Trigger the animation by toggling the class
   function triggerAnimation() {
     animateTitle = false; // Reset animation
     setTimeout(() => {
       animateTitle = true; // Restart animation
     }, 10); // Small delay to ensure CSS re-renders
-  }
-
-  $: {
-    // Once direction changes, reset it after the transition
-    if (transitioning) {
-      setTimeout(() => {
-        direction = "";
-        transitioning = false;
-      }, 300); // Adjust duration to match transition speed
-    }
   }
 </script>
 
@@ -137,29 +107,22 @@
   <div
     class="grid grid-cols-7 grid-rows-3 h-fit my-auto justify-center items-center"
   >
-     <button on:click={PreviousMovie} class="row-span-3 w-14 mx-auto justify-center items-center bg-cyan-700 hover:bg-cyan-800  ease-in-out transition-opacity p-3 rounded-full ">
-      <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 4l-8 8 8 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      
-      
+    <button on:click={PreviousMovie} class="row-span-3 rotate-180 w-24 mx-auto">
+      <img src="./right-arrow.png" alt="" />
     </button>
 
     <div
-      class="bg-black opacity-80 col-span-5 row-span-3 grid grid-rows-3 grid-cols-5 p-4 justify-center items-center my-auto rounded-lg"
+      class="bg-white z-10 inset-0 opacity-80 col-span-5 row-span-3 grid grid-rows-3 grid-cols-5 p-4 justify-center items-center my-auto rounded-lg"
     >
       <img
         src={movies[currentIndex].poster}
         alt=""
         class="h-60 w-auto rounded-lg mx-auto row-span-3"
       />
-      <div 
-      class="font-poiret text-4xl font-bold col-span-4 ok"
-      class:animated-text={animateTitle}
-      >
+      <div class="font-poiret text-4xl font-bold col-span-4 text-black ok animated-text">
         {movies[currentIndex].title}
       </div>
-      <div class="font-poiret text-xl font-medium col-span-4 ">
+      <div class="font-poiret text-xl font-medium col-span-4 text-black">
         {movies[currentIndex].summary}
       </div>
       <div class="flex col-span-4">
@@ -186,11 +149,8 @@
       </div>
     </div>
 
-    <button on:click={NextMovie} class="row-span-3 w-14 mx-auto justify-center items-center bg-cyan-700 hover:bg-cyan-800  ease-in-out transition-opacity p-3 rounded-full ">
-      <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 4l8 8-8 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      
+    <button on:click={NextMovie} class="row-span-3 w-24 mx-auto">
+      <img src="./right-arrow.png" alt="" />
     </button>
   </div>
 
