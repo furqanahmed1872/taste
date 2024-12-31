@@ -2,9 +2,9 @@
   import { goto } from "$app/navigation";
   import { onDestroy, onMount } from "svelte";
   import { get } from "svelte/store";
+
   export let data;
   let { base64Audio1, base64Audio2, num } = data;
-
   let imageSrc = "../mute.png";
   let videoElement;
   let isPlaying = false;
@@ -14,7 +14,14 @@
   let audio: HTMLAudioElement | null = null;
   let backgroundMusic: HTMLAudioElement | null = null;
   let showOverlay = true;
-  let filtersValue = get(data.details);
+  let filtersValue;
+  let Proceed = false;
+  interface Details {
+    year: number | null;
+    genre: string | null;
+    storyline: string | null;
+    type: string | null;
+  }
 
   async function startRecording() {
     try {
@@ -48,6 +55,39 @@
     }
   }
 
+  // Function to get details from localStorage
+  function getDetailsFromLocalStorage() {
+    const storedDetails = localStorage.getItem("details");
+    return storedDetails ? JSON.parse(storedDetails) : {};
+  }
+
+  // Function to update localStorage with the new details
+  function updateLocalStorage(newDetails: object) {
+    const currentDetails = getDetailsFromLocalStorage();
+    const updatedDetails = { ...currentDetails };
+    for (let key in newDetails) {
+      if (newDetails[key] !== null && newDetails[key] !== undefined) {
+        updatedDetails[key] = newDetails[key];
+      }
+    }
+    localStorage.setItem("details", JSON.stringify(updatedDetails));
+    checkAllParametersFulfilled(updatedDetails);
+  }
+
+  function checkAllParametersFulfilled(details: Details) {
+    // Check if all required parameters (year, genre, storyline, and type) are filled
+    if (
+      details.year !== null &&
+      details.genre !== null &&
+      details.storyline !== null &&
+      details.type !== null
+    ) {
+      Proceed = true;
+      console.log("All parameters fulfilled:");
+    }
+  }
+
+  $: console.log(Proceed);
   async function sendMessage(audioBlob: Blob, selectedVoice: number) {
     const voices = [
       "alloy",
@@ -71,14 +111,17 @@
       const data = await response.json();
 
       if (response.ok) {
-        if (data.base64Audio) {
-          // Corrected from base65Audio
+        if (data.base65Audio && !Proceed) {
+          const extractedDetails = data.extractedDetails;
+          const currentDetails = getDetailsFromLocalStorage();
+          const updatedDetails = { ...currentDetails, ...extractedDetails };
           const audioBlob = new Blob(
-            [Uint8Array.from(atob(data.base64Audio), (c) => c.charCodeAt(0))],
+            [Uint8Array.from(atob(data.base65Audio), (c) => c.charCodeAt(0))],
             { type: "audio/mpeg" }
           );
           const audioUrl = URL.createObjectURL(audioBlob);
           const audio = new Audio(audioUrl);
+          updateLocalStorage(updatedDetails);
 
           audio
             .play()
@@ -89,7 +132,7 @@
             .catch((err) => {
               console.error("Error playing audio:", err);
             });
-        } else if (data.details && base64Audio2) {
+        } else if (data.details) {
           // Handle the second audio
           const audioBlob = new Blob(
             [Uint8Array.from(atob(base64Audio2), (c) => c.charCodeAt(0))],
@@ -97,7 +140,7 @@
           );
           const audioUrl = URL.createObjectURL(audioBlob);
           const audio = new Audio(audioUrl);
-
+          console.log(data.details);
           audio
             .play()
             .then(() => {
@@ -106,19 +149,14 @@
             .catch((err) => {
               console.error("Error playing second audio:", err);
             });
-
+          filtersValue = get(data.details);
+          const queryParams = new URLSearchParams(filtersValue).toString();
           // Navigate after playback
           audio.onended = () => {
-            // goto(
-            //   `/result?details=${encodeURIComponent(JSON.stringify(data.details))}`
-            // );
+            setTimeout(() => {
+              goto(`/result?${queryParams}`);
+            }, 5000);
           };
-        } else if (data.details) {
-          console.log("No audio found, navigating to result.");
-          const queryParams = new URLSearchParams(filtersValue).toString();
-          setTimeout(() => {
-            goto(`/result?${queryParams}`);
-          }, 5000);
         }
       } else {
         console.error("Error:", data.error);

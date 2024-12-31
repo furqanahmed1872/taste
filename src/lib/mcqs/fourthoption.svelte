@@ -1,6 +1,6 @@
 <script>
   import { onMount, onDestroy } from "svelte";
-  import { filters } from "$lib/store";
+  import { filters } from "$lib/stores/store";
   export let handleNext;
 
   // Store clicked genres

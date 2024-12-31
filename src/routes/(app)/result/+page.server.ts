@@ -1,6 +1,6 @@
 import { supabase } from "$lib/supabaseClient";
 import { error } from "@sveltejs/kit";
-import { filters } from "$lib/store";
+import { filters } from "$lib/stores/store";
 import { get } from "svelte/store";
 
 export async function load({ url }) {

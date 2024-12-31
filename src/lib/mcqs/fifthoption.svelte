@@ -1,5 +1,5 @@
 <script>
-  import { filters } from "$lib/store";
+  import { filters } from "$lib/stores/store";
   import { goto } from "$app/navigation";
   import { get } from "svelte/store";
 
