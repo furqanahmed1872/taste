@@ -13,9 +13,9 @@ export async function load({ url }) {
   console.log(filtersValue);
 
   if (
-    (filtersValue.type,
-    filtersValue.genre,
-    filtersValue.year,
+    (filtersValue.type&&
+    filtersValue.genre&&
+    filtersValue.year&&
     filtersValue.rating)
   ) {
     const { data: movies, error: fetchError } = await supabase

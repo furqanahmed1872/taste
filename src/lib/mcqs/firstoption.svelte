@@ -5,10 +5,10 @@
   let firstoption = "";
 
   let arr = [
-    "Released 5 years ago",
-    "Released 10 years ago",
-    "Released 15 years ago",
-    "Released 20 years ago",
+    "Published in the last 5 years",
+    "Published in the last 10 years.",
+    "Published in the last 15 years.",
+    "Published in the last 20 years.",
     "Doesn't matter",
   ];
 

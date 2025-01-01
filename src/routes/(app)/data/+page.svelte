@@ -5,7 +5,7 @@
 
 <h1 class="text-3xl font-semibold text-center my-8">Movie List</h1>
 
-<div class="grid grid-cols-6 gap-6">
+<div class="grid gap-6">
   {#if movies}
     {#each movies as movie}
       <a
@@ -13,7 +13,7 @@
         class="bg-white rounded-lg shadow-lg overflow-hidden ease-in-out hover:scale-105"
       >
         <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster}`}
+          src={`https://image.tmdb.org/t/p/w500${movie.background}`}
           alt={movie.title}
           class="w-full h-auto"
         />

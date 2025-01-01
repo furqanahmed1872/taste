@@ -55,6 +55,8 @@
       direction = "left";
       currentIndex = (currentIndex + 1) % movies.length;
       triggerAnimation();
+      showFullStory = false;
+
     }
   }
 
@@ -64,6 +66,7 @@
       direction = "right";
       currentIndex = (currentIndex - 1 + movies.length) % movies.length;
       triggerAnimation();
+      showFullStory = false;
     }
   }
 
@@ -83,6 +86,8 @@
       }, 300); // Adjust duration to match transition speed
     }
   }
+
+  let showFullStory = false;
 </script>
 
 {#if direction === "right"}
@@ -93,13 +98,13 @@
   ></div>
 {:else if direction === "left"}
   <div
-    class="bg-poster transition-all"
+    class="bg-poster transition-all "
     style="background-image: url({`https://image.tmdb.org/t/p/w500${movies[currentIndex].background}`});"
     transition:fly|local={{ x: -1000 }}
   ></div>
 {:else}
   <div
-    class="bg-poster"
+    class="bg-poster "
     style="background-image: url({`https://image.tmdb.org/t/p/w500${movies[currentIndex].background}`});"
   ></div>
 {/if}
@@ -168,8 +173,25 @@
       </div>
       
       <div class="font-poiret text-xl font-medium col-span-4">
-        {movies[currentIndex].storyline}
+        {#if showFullStory}
+        {movies[currentIndex].storyline} <!-- Full storyline -->
+        <span 
+          class="text-blue-500 cursor-pointer" 
+          onclick={() => showFullStory = false}>
+          Show Less
+        </span>
+      {:else}
+        {movies[currentIndex].storyline.slice(0, 247)}... <!-- Truncated storyline -->
+        {#if movies[currentIndex].storyline.length > 250}
+          <span 
+            class="text-blue-500 cursor-pointer" 
+            onclick={() => showFullStory = true}>
+            Read More
+          </span>
+        {/if}
+      {/if}
       </div>
+      
 
       <div class="flex col-span-4">
         <button
@@ -248,7 +270,9 @@
   .bg-poster {
     position: fixed;
     inset: 0;
-    background-size: cover;
-    background-position: center;
+    transform: rotate(-10deg); /* Rotate the poster */
+    transform-origin: center;  /* Set rotation origin */
+    z-index: -1;              /* Send it to the background */
+    background: cover;
   }
 </style>

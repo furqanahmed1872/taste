@@ -3,30 +3,38 @@
 
   const faqData = [
     {
-      question: "What payment methods do you accept?",
-      answer:
-        "We accept all major credit cards including Visa, MasterCard, American Express, and Discover. We also support PayPal and Apple Pay for your convenience.",
-    },
-    {
-      question: "How long does shipping typically take?",
-      answer:
-        "Standard shipping typically takes 3-5 business days within the continental US. International shipping can take 7-14 business days depending on the destination.",
-    },
-    {
-      question: "What is your return policy?",
-      answer:
-        "We offer a 30-day return policy for all unused items in their original packaging. Simply contact our customer service team to initiate a return.",
-    },
-    {
-      question: "Do you offer international shipping?",
-      answer:
-        "Yes, we ship to most countries worldwide. International shipping rates and delivery times vary by location. Please check our shipping calculator for specific details.",
-    },
-    {
-      question: "How can I track my order?",
-      answer:
-        "Once your order ships, you'll receive a confirmation email with a tracking number. You can use this number to track your package on our website or the carrier's website.",
-    },
+    question: "How does the movie recommendation system work?",
+    answer:
+      "Our system analyzes your preferences based on genres, ratings, and reviews to suggest movies that match your taste. You can also explore trending and popular movies curated by our team.",
+  },
+  {
+    question: "Is this website free to use?",
+    answer:
+      "Yes! Our movie recommendation website is completely free to use. No subscriptions or hidden charges.",
+  },
+  
+  {
+    question: "How accurate are the recommendations?",
+    answer:
+      "We use advanced algorithms and user feedback to provide accurate recommendations, but movie preferences can vary. You can fine-tune suggestions by rating movies you’ve already seen.",
+  },
+  
+  {
+    question: "Do you include all genres?",
+    answer:
+      "Yes, we cover all genres—from action and drama to sci-fi and documentaries. Whatever your mood, we have something for you!",
+  },
+  {
+    question: "Are the movie ratings and reviews reliable?",
+    answer:
+      "Our ratings are compiled from verified sources and user reviews, ensuring a balanced and trustworthy evaluation.",
+  },
+  {
+    question: "Can I watch movies directly on this site?",
+    answer:
+      "No, we don’t host movies. We provide links to official streaming platforms where you can watch them legally.",
+  },
+  
   ];
 
   const handleToggle = (index) => {
@@ -45,11 +53,11 @@
       class="fixed inset-0 bg-gradient-to-r from-[#051721] via-black to-[#210505] opacity-95 transition-opacity"
     ></div>
 
-    <div class="relative z-10 flex flex-col items-center text-white">
-      <div class="flex justify-center my-4">
-        <img src="../logo.png" alt="Logo" class="h-24 w-24" />
+    <div class="relative z-10 grid grid-rows-12 items-center text-white">
+      <div class="flex justify-center my-4 row-span-3">
+        <img src="../logo.png" alt="Logo" class=" w-24" />
       </div>
-      <div class="max-w-3xl mx-auto">
+      <div class="max-w-3xl mx-auto row-span-9 ">
         <h2
           class="relative text-2xl my-2 md:text-4xl font-extrabold text-center bg-gradient-to-r from-black via-white to-black bg-clip-text text-transparent mb-8 animate-gradient-slide"
         >

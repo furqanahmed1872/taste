@@ -9,11 +9,11 @@
       class="fixed inset-0 bg-gradient-to-r from-[#051721] via-black to-[#210505] opacity-95 transition-opacity"
     ></div>
 
-    <div class="relative z-10 flex flex-col justify-around gap-4 items-center text-white">
+    <div class="relative z-10 grid justify-center gap-4 items-center text-white">
       <div class="flex justify-center my-4">
         <img src="../logo.png" alt="Logo" class="h-24 w-24" />
       </div>
-      <div class="max-w-3xl mx-auto">
+      <div class="max-w-3xl my-auto ">
         <div class="max-w-4xl text-center px-6">
           <h2
             class="relative text-2xl my-2 md:text-4xl font-extrabold text-center bg-gradient-to-r from-black via-white to-black bg-clip-text text-transparent mb-8 animate-gradient-slide"
