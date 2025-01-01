@@ -1,7 +1,8 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { onDestroy, onMount } from "svelte";
-  import { get } from "svelte/store";
+  import Progress from "svelte-carousel/src/components/Progress/Progress.svelte";
+  import { writable, get } from "svelte/store";
 
   export let data;
   let { base64Audio1, base64Audio2, num } = data;
@@ -14,7 +15,6 @@
   let audio: HTMLAudioElement | null = null;
   let backgroundMusic: HTMLAudioElement | null = null;
   let showOverlay = true;
-  let filtersValue;
   let Proceed = false;
   interface Details {
     year: number | null;
@@ -77,26 +77,17 @@
   function checkAllParametersFulfilled(details: Details) {
     // Check if all required parameters (year, genre, storyline, and type) are filled
     if (
-      details.year !== null &&
-      details.genre !== null &&
-      details.storyline !== null &&
-      details.type !== null
+      ["year", "genre", "storyline", "type"].every(
+        (key) => details[key] != null
+      )
     ) {
       Proceed = true;
       console.log("All parameters fulfilled:");
     }
   }
 
-  $: console.log(Proceed);
   async function sendMessage(audioBlob: Blob, selectedVoice: number) {
-    const voices = [
-      "alloy",
-      "echo",
-      "fable",
-      "onyx",
-      "nova",
-      "shimmer",
-    ] as const;
+    const voices = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
     const formData = new FormData();
     formData.append("file", audioBlob, "speech.wav");
     formData.append("model", "whisper-1");
@@ -110,53 +101,35 @@
       });
       const data = await response.json();
 
+      const extractedDetails = data.extractedDetails;
+      const currentDetails = getDetailsFromLocalStorage();
+      const updatedDetails = { ...currentDetails, ...extractedDetails };
+      updateLocalStorage(updatedDetails);
+
       if (response.ok) {
         if (data.base65Audio && !Proceed) {
-          const extractedDetails = data.extractedDetails;
-          const currentDetails = getDetailsFromLocalStorage();
-          const updatedDetails = { ...currentDetails, ...extractedDetails };
           const audioBlob = new Blob(
             [Uint8Array.from(atob(data.base65Audio), (c) => c.charCodeAt(0))],
             { type: "audio/mpeg" }
           );
           const audioUrl = URL.createObjectURL(audioBlob);
           const audio = new Audio(audioUrl);
-          updateLocalStorage(updatedDetails);
-
-          audio
-            .play()
-            .then(() => {
-              console.log("Audio playback successful");
-              showOverlay = false;
-            })
-            .catch((err) => {
-              console.error("Error playing audio:", err);
-            });
-        } else if (data.details) {
-          // Handle the second audio
+          await audio.play();
+          console.log("Audio playback successful");
+        } else if (extractedDetails) {
           const audioBlob = new Blob(
             [Uint8Array.from(atob(base64Audio2), (c) => c.charCodeAt(0))],
             { type: "audio/mpeg" }
           );
           const audioUrl = URL.createObjectURL(audioBlob);
           const audio = new Audio(audioUrl);
-          console.log(data.details);
-          audio
-            .play()
-            .then(() => {
-              console.log("Second audio playback successful");
-            })
-            .catch((err) => {
-              console.error("Error playing second audio:", err);
-            });
-          filtersValue = get(data.details);
-          const queryParams = new URLSearchParams(filtersValue).toString();
-          // Navigate after playback
-          audio.onended = () => {
-            setTimeout(() => {
-              goto(`/result?${queryParams}`);
-            }, 5000);
-          };
+          await audio.play();
+          console.log("Second audio playback successful");
+
+          const queryParams = new URLSearchParams(getDetailsFromLocalStorage()).toString();
+          setTimeout(() => {
+            goto(`/result?${queryParams}`);
+          }, 5000);
         }
       } else {
         console.error("Error:", data.error);
