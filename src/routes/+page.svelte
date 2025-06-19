@@ -111,7 +111,7 @@
             showOptions ? "translate-x-0" : "translate-x-10"
           }`}
         >
-          Ai Assistant!
+          Ai Assistant
         </button>
       </div>
     </div>
